@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../static/style.css" />
+    <title>Visualize Graph</title>
+  </head>
+
+  <body>
+    <!--NAVBAR-->
+    <div class="navbar">
+      <table>
+        <tr>
+          <th>Loader:</th>
+          <th>Source:</th>
+          <th>Visualization type:</th>
+          <th>Filter:</th>
+          <th>Search:</th>
+        </tr>
+        <tr>
+          <td>
+            <select id="choose-loader">
+              <option>JSON</option>
+              <option>XML</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" placeholder="Enter file name" id="file-name" />
+          </td>
+          <td>
+            <select id="choose-visualzer">
+              <option>Simple</option>
+              <option>Block</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              placeholder="Enter attribute name"
+              id="attribute-name"
+            />
+            <select id="filter-operation">
+              <option>==</option>
+              <option>></option>
+              <option>>=</option>
+              <option><</option>
+              <option><=</option>
+              <option>!=</option>
+            </select>
+            <input
+              type="text"
+              placeholder="Enter attribute value"
+              id="attribute-value"
+            />
+          </td>
+          <td>
+            <input type="text" placeholder="Search..." id="search" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button>Load file</button></td>
+          <td><button>Visualize</button></td>
+          <td><button>Filter data</button></td>
+          <td><button>Search graph</button></td>
+        </tr>
+      </table>
+    </div>
+    <div class="container">
+      <!--TREE VIEW-->
+      <div class="tree-view">
+        Tree view
+        <!-- INSERT TREE HERE -->
+      </div>
+      <!--MAIN VIEW-->
+      <div class="main-view">
+        Main view
+        <!--BIRD VIEW-->
+        <div id="bird-view">Bird view</div>
+      </div>
+    </div>
+  </body>
+</html>

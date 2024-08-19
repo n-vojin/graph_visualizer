@@ -1,0 +1,94 @@
+.navbar {
+  background-color: #406882;
+  width: 100%;
+  padding: 10px;
+  display: block;
+}
+
+table {
+  border-spacing: 7px;
+  width: 80%;
+  text-align: left;
+}
+
+body {
+  height: 100%;
+  margin-left: 0;
+  margin-top: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #cfeaff;
+  color: #1a374d;
+  font-family: Verdana, Tahoma, sans-serif;
+  font-size: 13px;
+}
+
+button {
+  width: 100%;
+  background-color: #cfeaff;
+  border: none;
+  border-radius: 10px;
+  color: #1a374d;
+  padding: 7px 7px;
+  text-align: center;
+  display: inline-block;
+}
+
+button:hover {
+  background-color: #8dbed1;
+  cursor: pointer;
+}
+
+td {
+  padding: 7px;
+}
+
+#search,
+#file-name,
+#choose-loader {
+  width: 95%;
+}
+
+#choose-loader {
+  width: 110%;
+}
+
+.container {
+  height: 82%;
+  box-sizing: border-box;
+  display: flex;
+  padding-left: 10px;
+}
+
+.tree-view {
+  width: 20%;
+  border: 2px solid #406882;
+  border-radius: 15px;
+  padding: 1rem;
+  margin-top: 5px;
+}
+
+.main-view {
+  width: 80%;
+  border: 2px solid #406882;
+  border-radius: 15px;
+  padding: 1rem;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+#bird-view {
+  position: fixed;
+  bottom: 2rem;
+  right: 1.5rem;
+  width: 300px;
+  height: 200px;
+  padding: 1rem;
+  border: 2px solid #406882;
+  border-radius: 15px;
+}
