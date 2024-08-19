@@ -4,8 +4,8 @@ from django.shortcuts import render, redirect
 
 
 def index(request):
-    return render()
+    return render(request, 'index.html')
 
-def ucitavanje_plugin(request, id):
-    return render()
+#def ucitavanje_plugin(request, id):
+#    return render()
 #........
