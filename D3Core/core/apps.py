@@ -4,10 +4,11 @@ from django.apps import AppConfig
 
 class D3CoreConfig(AppConfig):
     name = 'core'
-    #plugini_ucitavanje=[]
+    plugini_ucitavanje=[]
 
-    #def ready(self):
-    #    self.plugini_ucitavanje=load_plugins("prodavnica.ucitati")
+    def ready(self):
+        self.plugini_ucitavanje=load_plugins("prodavnica.ucitati")
+
 
 def load_plugins(oznaka):
     plugins = []
