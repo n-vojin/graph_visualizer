@@ -3,7 +3,7 @@ import abc
 
 class UcitatiService(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def naziv(self):
+    def name(self):
         pass
 
     @abc.abstractmethod
