@@ -47,15 +47,28 @@ def create_graph(name):
 
 def add_node(graph, node_id, attributes=None):
     """
-    Adds a new node to the graph.
+    Adds a new node to the graph or returns an existing one.
     """
-    return Node.objects.create(graph=graph, node_id=node_id, attributes=attributes or {})
+    node, created = Node.objects.get_or_create(
+        graph=graph,
+        node_id=node_id,
+        defaults={'attributes': attributes or {}}
+    )
+    if not created and attributes:
+        node.attributes.update(attributes)
+        node.save()
+    return node
 
 def add_edge(graph, source_node, destination_node):
     """
-    Adds a new edge between two nodes in the graph.
+    Adds a new edge between two nodes in the graph if it doesn't exist.
     """
-    return Edge.objects.create(graph=graph, source=source_node, destination=destination_node)
+    edge, _ = Edge.objects.get_or_create(
+        graph=graph,
+        source=source_node,
+        destination=destination_node
+    )
+    return edge
 
 def remove_node(graph, node_id):
     """
@@ -74,3 +87,9 @@ def get_node_children(node):
     Returns all children of a given node.
     """
     return Node.objects.filter(graph=node.graph, incoming_edges__source=node)
+
+def get_node_by_id(graph, node_id):
+    """
+    Returns a node with the given node_id in the graph.
+    """
+    return Node.objects.filter(graph=graph, node_id=node_id).first()
