@@ -186,3 +186,4 @@ fabric.properties
 # .idea
 .idea/workspace.xml
 /.idea
+django_project/db.sqlite3
