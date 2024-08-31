@@ -59,45 +59,24 @@
       </div>
     </div>
       <script>
-        // Dummy data for testing
-        const dummyData = {
-            nodes: {
-                "1": { node_id: "1", attributes: { name: "Parent Node", type: "root" } },
-                "2": { node_id: "2", attributes: { name: "Child 1", type: "leaf" } },
-                "3": { node_id: "3", attributes: { name: "Child 2", type: "branch" } },
-                "4": { node_id: "4", attributes: { name: "Grandchild", type: "leaf" } }
-            },
-            edges: [
-                { source: { node_id: "1" }, destination: { node_id: "2" } },
-                { source: { node_id: "1" }, destination: { node_id: "3" } },
-                { source: { node_id: "3" }, destination: { node_id: "4" } }
-            ]
-        };
-
-        function buildTree(data) {
-            const treeData = {};
-
-            // Build tree structure
-            for (const edge of data.edges) {
-                const sourceId = edge.source.node_id;
-                const destId = edge.destination.node_id;
-                if (!treeData[sourceId]) treeData[sourceId] = [];
-                treeData[sourceId].push(destId);
-            }
-
+        // This function will build the tree from the Graph object
+        function buildTree(graph) {
             function renderNode(nodeId) {
-                const node = data.nodes[nodeId];
+                const node = graph.nodes[nodeId];
                 let html = `<li class="collapsed" data-id="${nodeId}">
                     <span class="node-name">${node.attributes.name || nodeId}</span>
                     <div class="attributes" style="display:none;">
                         ${Object.entries(node.attributes).map(([key, value]) =>
-                            `<div><strong>${key}:</strong> ${value}</div>`
+                            `<div><strong>${key}:</strong> ${JSON.stringify(value)}</div>`
                         ).join('')}
                     </div>`;
 
-                if (treeData[nodeId]) {
+                const children = graph.edges.filter(edge => edge.source.node_id === nodeId)
+                                            .map(edge => edge.destination.node_id);
+
+                if (children.length > 0) {
                     html += '<ul style="display:none;">';
-                    for (const childId of treeData[nodeId]) {
+                    for (const childId of children) {
                         html += renderNode(childId);
                     }
                     html += '</ul>';
@@ -108,10 +87,9 @@
             }
 
             // Find root nodes (nodes with no incoming edges)
-            const rootNodes = new Set(Object.keys(data.nodes));
-            for (const edge of data.edges) {
-                rootNodes.delete(edge.destination.node_id);
-            }
+            const allNodes = new Set(Object.keys(graph.nodes));
+            const childNodes = new Set(graph.edges.map(edge => edge.destination.node_id));
+            const rootNodes = [...allNodes].filter(nodeId => !childNodes.has(nodeId));
 
             let treeHtml = '';
             for (const rootId of rootNodes) {
@@ -123,7 +101,27 @@
 
         $(document).ready(function() {
             $('#loadGraphBtn').click(function() {
-                // For testing with dummy data:
+                // For testing with dummy data that matches FlexibleJSONLoader output:
+                const dummyData = {
+                    name: "Test Graph",
+                    nodes: {
+                        "1": { node_id: "1", attributes: { name: "I'm parent", nested: { id: "2", name: "I'm nested", reference: "1" } } },
+                        "2": { node_id: "2", attributes: { name: "I'm nested", reference: "1" } },
+                        "3": { node_id: "3", attributes: { name: "I'm in an array", reference: "1" } },
+                        "4": { node_id: "4", attributes: { name: "I'm also in an array" } },
+                        "5": { node_id: "5", attributes: { name: "I have a single child", single_child: { id: "6", name: "I'm a single child" }, reference: ["3", "4"] } },
+                        "6": { node_id: "6", attributes: { name: "I'm a single child" } }
+                    },
+                    edges: [
+                        { source: { node_id: "1" }, destination: { node_id: "2" } },
+                        { source: { node_id: "1" }, destination: { node_id: "3" } },
+                        { source: { node_id: "1" }, destination: { node_id: "4" } },
+                        { source: { node_id: "5" }, destination: { node_id: "6" } },
+                        { source: { node_id: "5" }, destination: { node_id: "3" } },
+                        { source: { node_id: "5" }, destination: { node_id: "4" } }
+                    ]
+                };
+
                 const treeHtml = buildTree(dummyData);
                 $('#graph-tree').html(treeHtml);
 
@@ -149,6 +147,6 @@
                 $(this).children('.node-name').addClass('selected');
             });
         });
-    </script>
+      </script>
   </body>
 </html>
