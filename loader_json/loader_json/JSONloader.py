@@ -15,17 +15,28 @@ class JSONLoader(LoaderPlugin):
             return json.load(file)
 
     def map_to_graph(self, parsed_data, graph):
-        def process_node(node_data, parent=None):
-            node = add_node(graph, node_data['id'], node_data)
+        def process_node(node_data, parent=None, key=None):
+            # Generate a unique node ID
+            node_id = f"{key}_{id(node_data)}" if key else str(id(node_data))
+
+            # Create node with all data as attributes
+            node = add_node(graph, node_id, node_data)
 
             if parent:
                 add_edge(graph, parent, node)
 
-            if 'children' in node_data:
-                for child in node_data['children']:
-                    process_node(child, node)
+            # Process nested structures
+            if isinstance(node_data, dict):
+                for key, value in node_data.items():
+                    if isinstance(value, (dict, list)):
+                        process_node(value, node, key)
+            elif isinstance(node_data, list):
+                for index, item in enumerate(node_data):
+                    if isinstance(item, (dict, list)):
+                        process_node(item, node, f"{key}_{index}" if key else str(index))
 
-            if 'reference' in node_data:
+            # Handle references
+            if isinstance(node_data, dict) and 'reference' in node_data:
                 references = node_data['reference']
                 if isinstance(references, list):
                     for ref in references:
@@ -37,9 +48,7 @@ class JSONLoader(LoaderPlugin):
                     if ref_node:
                         add_edge(graph, node, ref_node)
 
-        first_key = list(parsed_data.keys())[0]
-
-        for item in parsed_data.get(first_key, []):
-            process_node(item)
+        # Start processing from the root of the parsed data
+        process_node(parsed_data)
 
         return graph
