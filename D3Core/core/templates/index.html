@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="../static/style.css" />
     <title>Visualize Graph</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
 
   <body>
@@ -35,7 +36,7 @@
         <tr>
           <td></td>
           <td><button>Load file</button></td>
-          <td><button>Visualize</button></td>
+          <td><button id="loadGraphBtn">Visualize</button></td>
         </tr>
       </table>
       <div class="node-details">
@@ -47,6 +48,7 @@
       <!--TREE VIEW-->
       <div class="tree-view">
         Tree view
+        <ul id="graph-tree"></ul>
         <!-- INSERT TREE HERE -->
       </div>
       <!--MAIN VIEW-->
@@ -56,5 +58,97 @@
         <div id="bird-view">Bird view</div>
       </div>
     </div>
+      <script>
+        // Dummy data for testing
+        const dummyData = {
+            nodes: {
+                "1": { node_id: "1", attributes: { name: "Parent Node", type: "root" } },
+                "2": { node_id: "2", attributes: { name: "Child 1", type: "leaf" } },
+                "3": { node_id: "3", attributes: { name: "Child 2", type: "branch" } },
+                "4": { node_id: "4", attributes: { name: "Grandchild", type: "leaf" } }
+            },
+            edges: [
+                { source: { node_id: "1" }, destination: { node_id: "2" } },
+                { source: { node_id: "1" }, destination: { node_id: "3" } },
+                { source: { node_id: "3" }, destination: { node_id: "4" } }
+            ]
+        };
+
+        function buildTree(data) {
+            const treeData = {};
+
+            // Build tree structure
+            for (const edge of data.edges) {
+                const sourceId = edge.source.node_id;
+                const destId = edge.destination.node_id;
+                if (!treeData[sourceId]) treeData[sourceId] = [];
+                treeData[sourceId].push(destId);
+            }
+
+            function renderNode(nodeId) {
+                const node = data.nodes[nodeId];
+                let html = `<li class="collapsed" data-id="${nodeId}">
+                    <span class="node-name">${node.attributes.name || nodeId}</span>
+                    <div class="attributes" style="display:none;">
+                        ${Object.entries(node.attributes).map(([key, value]) =>
+                            `<div><strong>${key}:</strong> ${value}</div>`
+                        ).join('')}
+                    </div>`;
+
+                if (treeData[nodeId]) {
+                    html += '<ul style="display:none;">';
+                    for (const childId of treeData[nodeId]) {
+                        html += renderNode(childId);
+                    }
+                    html += '</ul>';
+                }
+
+                html += '</li>';
+                return html;
+            }
+
+            // Find root nodes (nodes with no incoming edges)
+            const rootNodes = new Set(Object.keys(data.nodes));
+            for (const edge of data.edges) {
+                rootNodes.delete(edge.destination.node_id);
+            }
+
+            let treeHtml = '';
+            for (const rootId of rootNodes) {
+                treeHtml += renderNode(rootId);
+            }
+
+            return treeHtml;
+        }
+
+        $(document).ready(function() {
+            $('#loadGraphBtn').click(function() {
+                // For testing with dummy data:
+                const treeHtml = buildTree(dummyData);
+                $('#graph-tree').html(treeHtml);
+
+                // For later use with actual data from the server:
+                // $.ajax({
+                //     url: '/get_graph_data/',  // Replace with your actual endpoint
+                //     method: 'GET',
+                //     success: function(data) {
+                //         const treeHtml = buildTree(data);
+                //         $('#graph-tree').html(treeHtml);
+                //     },
+                //     error: function(error) {
+                //         console.error('Error loading graph data:', error);
+                //     }
+                // });
+            });
+
+            $('#graph-tree').on('click', 'li', function(e) {
+                e.stopPropagation();
+                $(this).toggleClass('collapsed expanded');
+                $(this).children('ul, .attributes').toggle();
+                $('.selected').removeClass('selected');
+                $(this).children('.node-name').addClass('selected');
+            });
+        });
+    </script>
   </body>
 </html>

@@ -71,7 +71,7 @@ td {
 }
 
 .container {
-  height: 80%;
+  height: 85%;
   box-sizing: border-box;
   display: flex;
   padding-left: 10px;
@@ -103,4 +103,30 @@ td {
   padding: 1rem;
   border: 2px solid #406882;
   border-radius: 15px;
+  background-color: #cfeaff;
 }
+
+
+
+ .tree-view ul {
+            list-style-type: none;
+            padding-left: 20px;
+ }
+ .tree-view li {
+     cursor: pointer;
+     user-select: none;
+ }
+ .tree-view .selected {
+     color: red;
+ }
+ .tree-view .collapsed::before {
+     content: '▶ ';
+ }
+ .tree-view .expanded::before {
+     content: '▼ ';
+ }
+ .tree-view .attributes {
+     font-size: 0.9em;
+     color: #666;
+     margin-left: 20px;
+ }
