@@ -58,95 +58,123 @@
         <div id="bird-view">Bird view</div>
       </div>
     </div>
-      <script>
-        // This function will build the tree from the Graph object
-        function buildTree(graph) {
-            function renderNode(nodeId) {
-                const node = graph.nodes[nodeId];
-                let html = `<li class="collapsed" data-id="${nodeId}">
-                    <span class="node-name">${node.attributes.name || nodeId}</span>
-                    <div class="attributes" style="display:none;">
-                        ${Object.entries(node.attributes).map(([key, value]) =>
-                            `<div><strong>${key}:</strong> ${JSON.stringify(value)}</div>`
-                        ).join('')}
-                    </div>`;
 
-                const children = graph.edges.filter(edge => edge.source.node_id === nodeId)
-                                            .map(edge => edge.destination.node_id);
+<script>
+    function buildTree(graph) {
+        function renderNode(nodeId) {
+            const node = graph.nodes[nodeId];
+            let html = `<li class="collapsed" data-id="${nodeId}">
+                <span class="node-name">${nodeId}: ${node.attributes.name || 'Unnamed'}</span>
+                <div class="attributes" style="display:none;">`;
 
-                if (children.length > 0) {
-                    html += '<ul style="display:none;">';
-                    for (const childId of children) {
-                        html += renderNode(childId);
-                    }
-                    html += '</ul>';
+            for (const [key, value] of Object.entries(node.attributes)) {
+                if (key === 'reference') {
+                    // Display references as plain text
+                    html += `<div><strong>${key}:</strong> ${JSON.stringify(value)}</div>`;
+                } else if (typeof value === 'object' && value !== null) {
+                    // For nested objects or arrays, show the key as clickable
+                    html += `<div class="nested-data" data-nested='${JSON.stringify(value)}'><strong>${key}</strong></div>`;
+                } else {
+                    html += `<div><strong>${key}:</strong> ${value}</div>`;
                 }
-
-                html += '</li>';
-                return html;
             }
 
-            // Find root nodes (nodes with no incoming edges)
-            const allNodes = new Set(Object.keys(graph.nodes));
-            const childNodes = new Set(graph.edges.map(edge => edge.destination.node_id));
-            const rootNodes = [...allNodes].filter(nodeId => !childNodes.has(nodeId));
+            html += '</div>';
 
-            let treeHtml = '';
-            for (const rootId of rootNodes) {
-                treeHtml += renderNode(rootId);
+            const children = graph.edges.filter(edge => edge.source.node_id === nodeId)
+                                        .map(edge => edge.destination.node_id);
+
+            if (children.length > 0) {
+                html += '<ul style="display:none;">';
+                for (const childId of children) {
+                    html += renderNode(childId);
+                }
+                html += '</ul>';
             }
 
-            return treeHtml;
+            html += '</li>';
+            return html;
         }
 
-        $(document).ready(function() {
-            $('#loadGraphBtn').click(function() {
-                // For testing with dummy data that matches FlexibleJSONLoader output:
-                const dummyData = {
-                    name: "Test Graph",
-                    nodes: {
-                        "1": { node_id: "1", attributes: { name: "I'm parent", nested: { id: "2", name: "I'm nested", reference: "1" } } },
-                        "2": { node_id: "2", attributes: { name: "I'm nested", reference: "1" } },
-                        "3": { node_id: "3", attributes: { name: "I'm in an array", reference: "1" } },
-                        "4": { node_id: "4", attributes: { name: "I'm also in an array" } },
-                        "5": { node_id: "5", attributes: { name: "I have a single child", single_child: { id: "6", name: "I'm a single child" }, reference: ["3", "4"] } },
-                        "6": { node_id: "6", attributes: { name: "I'm a single child" } }
-                    },
-                    edges: [
-                        { source: { node_id: "1" }, destination: { node_id: "2" } },
-                        { source: { node_id: "1" }, destination: { node_id: "3" } },
-                        { source: { node_id: "1" }, destination: { node_id: "4" } },
-                        { source: { node_id: "5" }, destination: { node_id: "6" } },
-                        { source: { node_id: "5" }, destination: { node_id: "3" } },
-                        { source: { node_id: "5" }, destination: { node_id: "4" } }
-                    ]
-                };
+        const allNodes = new Set(Object.keys(graph.nodes));
+        const childNodes = new Set(graph.edges.map(edge => edge.destination.node_id));
+        const rootNodes = [...allNodes].filter(nodeId => !childNodes.has(nodeId));
 
-                const treeHtml = buildTree(dummyData);
-                $('#graph-tree').html(treeHtml);
+        let treeHtml = '';
+        for (const rootId of rootNodes) {
+            treeHtml += renderNode(rootId);
+        }
 
-                // For later use with actual data from the server:
-                // $.ajax({
-                //     url: '/get_graph_data/',  // Replace with your actual endpoint
-                //     method: 'GET',
-                //     success: function(data) {
-                //         const treeHtml = buildTree(data);
-                //         $('#graph-tree').html(treeHtml);
-                //     },
-                //     error: function(error) {
-                //         console.error('Error loading graph data:', error);
-                //     }
-                // });
-            });
+        return treeHtml;
+    }
 
-            $('#graph-tree').on('click', 'li', function(e) {
-                e.stopPropagation();
-                $(this).toggleClass('collapsed expanded');
-                $(this).children('ul, .attributes').toggle();
-                $('.selected').removeClass('selected');
-                $(this).children('.node-name').addClass('selected');
-            });
+    $(document).ready(function() {
+        $('#loadGraphBtn').click(function() {
+            // Dummy data matching FlexibleJSONLoader output
+            const dummyData = {
+                name: "Test Graph",
+                nodes: {
+                    "1": { node_id: "1", attributes: { name: "I'm parent", nested: { id: "2", name: "I'm nested", reference: "1" } } },
+                    "2": { node_id: "2", attributes: { name: "I'm nested", reference: "1" } },
+                    "3": { node_id: "3", attributes: { name: "I'm in an array", reference: "1" } },
+                    "4": { node_id: "4", attributes: { name: "I'm also in an array", age: "25", weight: "3tonnes" } },
+                    "5": { node_id: "5", attributes: { name: "I have a single child", single_child: { id: "6", name: "I'm a single child" }, reference: ["3", "4"] } },
+                    "6": { node_id: "6", attributes: { name: "I'm a single child" } }
+                },
+                edges: [
+                    { source: { node_id: "1" }, destination: { node_id: "2" } },
+                    { source: { node_id: "1" }, destination: { node_id: "3" } },
+                    { source: { node_id: "1" }, destination: { node_id: "4" } },
+                    { source: { node_id: "5" }, destination: { node_id: "6" } },
+                    { source: { node_id: "5" }, destination: { node_id: "3" } },
+                    { source: { node_id: "5" }, destination: { node_id: "4" } }
+                ]
+            };
+
+            const treeHtml = buildTree(dummyData);
+            $('#graph-tree').html(treeHtml);
+
+            // For later use with actual data from the server:
+            // $.ajax({
+            //     url: '/get_graph_data/',
+            //     method: 'GET',
+            //     success: function(data) {
+            //         const treeHtml = buildTree(data);
+            //         $('#graph-tree').html(treeHtml);
+            //     },
+            //     error: function(error) {
+            //         console.error('Error loading graph data:', error);
+            //     }
+            // });
         });
-      </script>
+
+        $('#graph-tree').on('click', 'li', function(e) {
+            e.stopPropagation();
+            $(this).toggleClass('collapsed expanded');
+            $(this).children('ul, .attributes').toggle();
+            $('.selected').removeClass('selected');
+            $(this).children('.node-name').addClass('selected');
+        });
+
+        $('#graph-tree').on('click', '.nested-data', function(e) {
+            e.stopPropagation();
+            const nestedData = JSON.parse($(this).attr('data-nested'));
+            let html = '<ul>';
+            for (const [key, value] of Object.entries(nestedData)) {
+                if (key === 'reference') {
+                    // Display references as plain text
+                    html += `<li><strong>${key}:</strong> ${JSON.stringify(value)}</li>`;
+                } else if (typeof value === 'object' && value !== null) {
+                    html += `<li class="nested-data" data-nested='${JSON.stringify(value)}'><strong>${key}</strong></li>`;
+                } else {
+                    html += `<li><strong>${key}:</strong> ${value}</li>`;
+                }
+            }
+            html += '</ul>';
+            $(this).html(html);
+            $(this).removeClass('nested-data');
+        });
+    });
+</script>
   </body>
 </html>
