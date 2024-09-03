@@ -94,6 +94,8 @@ td {
   margin-top: 5px;
 }
 
+ #graph { width: 100vw; height: calc(100vh - 50px); }
+
 #bird-view {
   position: fixed;
   bottom: 1.5rem;
