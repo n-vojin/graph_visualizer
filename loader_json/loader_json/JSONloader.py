@@ -1,6 +1,7 @@
 import json
 from core.services.ucitati import LoaderPlugin
 from core.models import Graph, Node, Edge, add_node, add_edge
+from collections import defaultdict
 
 
 class JSONLoader(LoaderPlugin):
@@ -15,40 +16,60 @@ class JSONLoader(LoaderPlugin):
             return json.load(file)
 
     def map_to_graph(self, parsed_data, graph):
-        def process_node(node_data, parent=None, key=None):
-            # Generate a unique node ID
-            node_id = f"{key}_{id(node_data)}" if key else str(id(node_data))
+        self.graph = graph
+        self.node_cache = {}
+        self.reference_queue = []
+        self.id_counters = defaultdict(int)
+        self.process_node(parsed_data)
+        self.process_references()
+        return self.graph
 
-            # Create node with all data as attributes
-            node = add_node(graph, node_id, node_data)
+    def process_node(self, data, parent_id=None, key=None):
+        node_id = self.generate_id(data, key)
 
-            if parent:
-                add_edge(graph, parent, node)
+        if isinstance(data, dict):
+            attributes = {k: v for k, v in data.items() if not isinstance(v, (dict, list))}
+            node = add_node(self.graph, node_id, attributes)
+            self.node_cache[node_id] = node
 
-            # Process nested structures
-            if isinstance(node_data, dict):
-                for key, value in node_data.items():
-                    if isinstance(value, (dict, list)):
-                        process_node(value, node, key)
-            elif isinstance(node_data, list):
-                for index, item in enumerate(node_data):
-                    if isinstance(item, (dict, list)):
-                        process_node(item, node, f"{key}_{index}" if key else str(index))
+            if 'reference' in data:
+                self.reference_queue.append((node_id, data['reference']))
 
-            # Handle references
-            if isinstance(node_data, dict) and 'reference' in node_data:
-                references = node_data['reference']
+            for key, value in data.items():
+                if isinstance(value, dict):
+                    child_id = self.process_node(value, node_id, key)
+                    add_edge(self.graph, node, self.node_cache[child_id])
+                elif isinstance(value, list):
+                    for index, item in enumerate(value):
+                        if isinstance(item, dict):
+                            child_id = self.process_node(item, node_id, f"{key}{index + 1}")
+                            add_edge(self.graph, node, self.node_cache[child_id])
+
+        elif isinstance(data, list):
+            for index, item in enumerate(data):
+                if isinstance(item, dict):
+                    self.process_node(item, parent_id, f"{key}{index + 1}")
+
+        return node_id
+
+    def process_references(self):
+        for source_id, references in self.reference_queue:
+            source_node = self.node_cache.get(source_id)
+            if source_node:
                 if isinstance(references, list):
                     for ref in references:
-                        ref_node = Node.objects.filter(graph=graph, node_id=ref).first()
-                        if ref_node:
-                            add_edge(graph, node, ref_node)
+                        target_node = self.node_cache.get(str(ref))
+                        if target_node:
+                            add_edge(self.graph, source_node, target_node)
                 elif isinstance(references, str):
-                    ref_node = Node.objects.filter(graph=graph, node_id=references).first()
-                    if ref_node:
-                        add_edge(graph, node, ref_node)
+                    target_node = self.node_cache.get(references)
+                    if target_node:
+                        add_edge(self.graph, source_node, target_node)
 
-        # Start processing from the root of the parsed data
-        process_node(parsed_data)
+    def generate_id(self, data, key=None):
+        if isinstance(data, dict) and 'id' in data:
+            return str(data['id'])
 
-        return graph
+        base_id = key or 'root'
+        self.id_counters[base_id] += 1
+        return f"{base_id}{self.id_counters[base_id]}"

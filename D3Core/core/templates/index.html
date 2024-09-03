@@ -80,9 +80,10 @@
             const displayText = getFirstAttribute(attributes);
 
             let html = `<li class="collapsed" data-id="${nodeId}">
-                <span class="node-name">${displayText}</span>
+                <span class="node-name">${nodeId}</span>
                 <div class="attributes" style="display:none;">`;
 
+            //html += `<div><strong>Node ID:</strong> ${nodeId}</div>`;
             for (const [key, value] of Object.entries(attributes)) {
                 if (typeof value === 'object' && value !== null) {
                     html += `<div class="nested-data" data-nested='${JSON.stringify(value)}'><strong>${key}</strong></div>`;
