@@ -35,11 +35,13 @@ remove_eggs_venv_lib(){
 # remove build files from venv
 remove_eggs_venv_lib_core core
 remove_eggs_venv_lib json_loader
-#remove_eggs_venv_lib visualizer_simple
+remove_eggs_venv_lib visualizer_simple
+remove_eggs_venv_lib_core json_loader
+remove_eggs_venv_lib_core simple_visualizer
 
 
 # remove build files from components
 remove_eggs D3Core
-#remove_eggs visualizer_simple
+remove_eggs visualizer_simple
 remove_eggs loader_json
 

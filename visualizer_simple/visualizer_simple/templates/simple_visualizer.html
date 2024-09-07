@@ -1,8 +1,10 @@
-// SimpleVizTemp.js
-(function() {
+<script>
     let simulation;
     let svg, g, birdSvg, birdG;
-    let width = 900, height = 600;    let birdWidth = 300, birdHeight = 200;
+    let width = 900, height = 600;
+    let birdWidth = 300, birdHeight = 200;
+    let selectedNode = null;
+    let nodeElements, birdNodeElements;
 
     function initializeGraph() {
         d3.select("#graph").selectAll("*").remove();
@@ -22,7 +24,6 @@
 
         birdG = birdSvg.append("g");
 
-        // Add zoom behavior
         const zoom = d3.zoom()
             .scaleExtent([0.1, 4])
             .on("zoom", (event) => {
@@ -68,7 +69,7 @@
                     .join("line")
                     .attr("stroke-width", 2);
 
-                const node = g.append("g")
+                nodeElements = g.append("g")
                     .attr("stroke", "#fff")
                     .attr("stroke-width", 1.5)
                     .selectAll("circle")
@@ -76,9 +77,11 @@
                     .join("circle")
                     .attr("r", 10)
                     .attr("fill", "#69b3a2")
-                    .call(drag(simulation));
+                    .attr("id", d => d.id)
+                    .call(drag(simulation))
+                    .on("click", clicked);
 
-                node.append("title")
+                nodeElements.append("title")
                     .text(d => d.id);
 
                 const labels = g.append("g")
@@ -92,7 +95,6 @@
                     .attr("dx", 12)
                     .attr("dy", 4);
 
-                // Bird's eye view elements
                 const birdLink = birdG.append("g")
                     .attr("stroke", "#999")
                     .attr("stroke-opacity", 0.6)
@@ -101,14 +103,14 @@
                     .join("line")
                     .attr("stroke-width", 1);
 
-                const birdNode = birdG.append("g")
+                birdNodeElements = birdG.append("g")
                     .selectAll("circle")
                     .data(nodes)
                     .join("circle")
-                    .attr("r", 2)
-                    .attr("fill", "#69b3a2");
+                    .attr("r", 4)
+                    .attr("fill", "#69b3a2")
+                    .attr("id", d => `bird-${d.id}`);
 
-                // Add viewport rectangle to bird's eye view
                 const viewport = birdSvg.append("rect")
                     .attr("stroke", "red")
                     .attr("stroke-width", 2)
@@ -128,7 +130,7 @@
                         .attr("x2", d => d.target.x)
                         .attr("y2", d => d.target.y);
 
-                    node
+                    nodeElements
                         .attr("cx", d => d.x)
                         .attr("cy", d => d.y);
 
@@ -136,20 +138,24 @@
                         .attr("x", d => d.x)
                         .attr("y", d => d.y);
 
-                    // Update bird's eye view
                     birdLink
                         .attr("x1", d => d.source.x * birdWidth / width)
                         .attr("y1", d => d.source.y * birdHeight / height)
                         .attr("x2", d => d.target.x * birdWidth / width)
                         .attr("y2", d => d.target.y * birdHeight / height);
 
-                    birdNode
+                    birdNodeElements
                         .attr("cx", d => d.x * birdWidth / width)
                         .attr("cy", d => d.y * birdHeight / height);
                 }
 
-                // Initial update of bird's eye view viewport
                 updateBirdViewport(d3.zoomIdentity);
+
+                function clicked(event, d) {
+                    highlightNode(d.id);
+                    // Trigger click on the corresponding tree node
+                    $(`#graph-tree li[data-id="${d.id}"]`).click();
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error("Error fetching graph data:", textStatus, errorThrown);
@@ -199,12 +205,32 @@
             .on("end", dragended);
     }
 
-    // Expose the loadGraph function to the global scope
-    window.loadGraph = loadGraph;
+    function highlightNode(nodeId) {
+        if (selectedNode) {
+            nodeElements.filter(d => d.id === selectedNode)
+                .attr("fill", "#69b3a2")
+                .attr("r", 10);
+            birdNodeElements.filter(d => d.id === selectedNode)
+                .attr("fill", "#69b3a2")
+                .attr("r", 4);
+        }
+        selectedNode = nodeId;
+        nodeElements.filter(d => d.id === nodeId)
+            .attr("fill", "red")
+            .attr("r", 12);
+        birdNodeElements.filter(d => d.id === nodeId)
+            .attr("fill", "red")
+            .attr("r", 4);
+    }
 
-    // Initialize the graph when the document is ready
     $(document).ready(function() {
-        $("#loadGraphBtn").click(loadGraph);
+        $("#visualiseButton").click(loadGraph);
         loadGraph(); // Initial load
+
+        // Listen for node selection in the tree view
+        $('#graph-tree').on('click', 'li', function(e) {
+            const nodeId = $(this).data('id');
+            highlightNode(nodeId);
+        });
     });
-})();
+</script>

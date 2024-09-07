@@ -6,9 +6,9 @@ cd "loader_json"
 python setup.py install
 cd ..
 
-#cd "visualiser_simple"
-#python setup.py install
-#cd ..
+cd "visualizer_simple"
+python setup.py install
+cd ..
 
 
 

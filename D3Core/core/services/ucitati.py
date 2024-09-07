@@ -29,7 +29,7 @@ class LoaderPlugin(UcitatiService):
 
 class VisualizerPlugin(UcitatiService):
     @abc.abstractmethod
-    def visualize(self, graph):
+    def visualize(self):
         """
         Generate a visualization of the graph.
         """

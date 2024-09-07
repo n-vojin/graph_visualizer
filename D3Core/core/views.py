@@ -1,6 +1,9 @@
+import os.path
+
 from django.apps import apps
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from core.models import Graph, Node, Edge
 import jsonpickle
@@ -72,3 +75,22 @@ def get_graph_data(request):
     except Exception as e:
         logger.exception(f"Error in get_graph_data: {str(e)}")
         return JsonResponse({"error": str(e)}, status=500)
+
+
+@csrf_exempt  # Remove this if you're using CSRF tokens in production
+def visualise(request):
+    if request.method == 'POST':
+
+        # Get the visualizer plugins
+        visualizer_plugins = apps.get_app_config("core").visualizer_plugins
+        simple_visualizer = next((visualizer for visualizer in visualizer_plugins if visualizer.identifier() == "simple_visualizer"), None)
+
+        if not simple_visualizer:
+            logger.error("Simple visualizer not found")
+            return JsonResponse({"error": "Simple visualizer not found"}, status=400)
+
+        # Your logic here to generate visualization (e.g., HTML content)
+        fileString = simple_visualizer.visualize()
+
+        # Return the HTML string as part of the JSON response
+        return JsonResponse({'html': fileString})
