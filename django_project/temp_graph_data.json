@@ -253,6 +253,14 @@
         "node_id": "2"
       },
       "destination": {
+        "node_id": "e222"
+      }
+    },
+    {
+      "source": {
+        "node_id": "2"
+      },
+      "destination": {
         "node_id": "555"
       }
     }

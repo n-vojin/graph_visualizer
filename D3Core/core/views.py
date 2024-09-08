@@ -20,7 +20,12 @@ def index(request):
     storage_path = os.path.join(settings.BASE_DIR, 'temp_graph_data.json')
     if os.path.exists(storage_path):
         os.remove(storage_path)
-    return render(request, 'index.html', )
+    context = {
+        'loader_plugins': apps.get_app_config("core").loader_plugins,
+        'visualiser_plugins': apps.get_app_config("core").visualizer_plugins
+    }
+
+    return render(request, 'index.html', context )
 
 @csrf_exempt
 @require_http_methods(["POST"])

@@ -21,19 +21,29 @@
         </tr>
         <tr>
           <td>
-            <select id="choose-loader">
-              <option value="json">JSON</option>
-              <option value="xml">XML</option>
-            </select>
+                <select id="choose-loader">
+                    {% if loader_plugins %}
+                        {% for plugin in loader_plugins %}
+                            <option value="{{ plugin.identifier }}">{{ plugin.naziv }}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option value="">No loader plugins available</option>
+                    {% endif %}
+                </select>
           </td>
           <td>
             <input type="file" id="fileInput" name="file" accept=".json,.xml">
           </td>
           <td>
-            <select id="choose-visualizer">
-              <option value="simple">Simple</option>
-              <option value="block">Block</option>
-            </select>
+              <select id="choose-visualizer">
+                  {% if visualiser_plugins %}
+                      {% for plugin in visualiser_plugins %}
+                          <option value="{{ plugin.identifier }}">{{ plugin.naziv }}</option>
+                      {% endfor %}
+                  {% else %}
+                      <option value="">No visualizer plugins available</option>
+                  {% endif %}
+              </select>
           </td>
         </tr>
         <tr>
@@ -65,29 +75,35 @@
     </div>
 
 <script>
-    // JavaScript/jQuery function to handle the button click event
-    $('#visualiseButton').click(function() {
-        // Check if the #graph div is empty
-        if ($('#graph').is(':empty')) {
-            // If it's empty, make the AJAX POST request
-            $.ajax({
-                type: 'POST',
-                url: "{% url 'visualise' %}",
-                data: {
-                    csrfmiddlewaretoken: '{{ csrf_token }}'  // Including CSRF token for Django's security
-                },
-                success: function(response) {
-                    // Update the div with the returned HTML content
-                    $('#graph').html(response.html);
-                },
-                error: function(xhr, status, error) {
-                    // Optional: Handle errors if the request fails
-                    console.error("AJAX request failed: ", error);
+    $(document).ready(function() {
+        $('#visualiseButton').click(function() {
+            if ($('#graph').is(':empty')) {
+                var selectedVisualizer = $('#choose-visualizer').val();
+
+                if (!selectedVisualizer) {
+                    alert('No visualizer selected.');
+                    return;
                 }
-            });
-        } else {
-            console.log("Graph is already loaded, no need to reload.");
-        }
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'visualise' %}",
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        visualizer: selectedVisualizer
+                    },
+                    success: function(response) {
+                        $('#graph').html(response.html);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX request failed: ", error);
+                        alert('Failed to load the visualization. Please try again.');
+                    }
+                });
+            } else {
+                console.log("Graph is already loaded, no need to reload.");
+            }
+        });
     });
 </script>
 
@@ -230,6 +246,13 @@
             var formData = new FormData();
             formData.append('file', fileInput.files[0]);
             formData.append('loader', $('#choose-loader').val());
+
+
+            var selectedLoader = $('#choose-loader').val();
+            if (!selectedLoader) {
+                alert('Please select a loader plugin first.');
+                return;
+            }
 
             $.ajax({
                 url: '/get_graph_data/',
