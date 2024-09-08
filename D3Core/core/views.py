@@ -1,12 +1,13 @@
 import os.path
 
 from django.apps import apps
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from core.models import Graph, Node, Edge
-import jsonpickle
 import logging
 import json
 
@@ -14,6 +15,9 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
+    storage_path = os.path.join(settings.BASE_DIR, 'temp_graph_data.json')
+    if os.path.exists(storage_path):
+        os.remove(storage_path)
     return render(request, 'index.html', )
 
 
@@ -45,7 +49,7 @@ def get_graph_data(request):
         # Map the JSON data to the graph
         json_loader.map_to_graph(json_data, graph)
 
-        # Prepare the data for the frontend
+        # Prepare the data for storage
         nodes = {}
         for node in Node.objects.filter(graph=graph):
             nodes[node.node_id] = {
@@ -62,14 +66,18 @@ def get_graph_data(request):
             "edges": edges
         }
 
-        # Prepare the JSON data for download
         json_data = json.dumps(response_data, indent=2, default=str)
-
-        # Create the HttpResponse object with JSON content
         response = HttpResponse(json_data, content_type='application/json')
-        response['Content-Disposition'] = 'attachment; filename="graph_data.json"'
 
-        logger.info("JSON data prepared for client download")
+        # Define the path for the server-side storage
+        storage_path = os.path.join(settings.BASE_DIR, 'temp_graph_data.json')
+
+
+        # Save the data to a file on the server
+        with open(storage_path, 'w') as f:
+            json.dump(response_data, f, indent=2, default=str)
+
+        logger.info("Graph data saved to server")
         return response
 
     except Exception as e:
@@ -94,3 +102,22 @@ def visualise(request):
 
         # Return the HTML string as part of the JSON response
         return JsonResponse({'html': fileString})
+
+
+@require_http_methods(["GET"])
+def fetch_graph_data(request):
+    storage_path = os.path.join(settings.BASE_DIR, 'temp_graph_data.json')
+    try:
+        with open(storage_path, 'r') as f:
+            data = json.load(f)
+
+        # Optionally, delete the file after reading
+        #os.remove(storage_path)
+
+        return JsonResponse(data)
+    except FileNotFoundError:
+        return JsonResponse({"error": "Graph data not found"}, status=404)
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "Invalid graph data"}, status=500)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)

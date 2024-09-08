@@ -46,7 +46,7 @@
         const { g, birdG } = initializeGraph();
 
         $.ajax({
-            url: '/get_graph_data/',
+            url: '/fetch_graph_data/',
             method: 'GET',
             dataType: 'json',
             success: function(graph) {
@@ -158,6 +158,7 @@
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
+                alert("Nothing to visualize");
                 console.error("Error fetching graph data:", textStatus, errorThrown);
             }
         });
