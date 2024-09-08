@@ -1,377 +1,145 @@
 {
-  "name": "Test Graph",
+  "name": "Uploaded Graph",
   "nodes": {
     "root1": {
       "node_id": "root1",
+      "attributes": {}
+    },
+    "1": {
+      "node_id": "1",
       "attributes": {
-        "updatedDate": "2023/11/09"
+        "id": "1",
+        "title": "Eloquent JavaScript, Third Edition"
       }
     },
-    "milestones11": {
-      "node_id": "milestones11",
+    "e222": {
+      "node_id": "e222",
       "attributes": {
-        "milestoneID": 1,
-        "milestoneDesc": "In FY2015, GSA IT undertook a cover-to-cover revision of its guidance for system development lifecycle management. This was done to acknowledge the prominence of Cloud-based solutions, Agile, and incremental delivery of functionality as a product of the Agile method of development. The revised guidance and policy updates were implemented in July of FY2016.",
-        "milestoneTargetCompletionDate": "2016/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "With the recent release of the draft Agile guidance from OMB, GSA IT is adopting a more repeatable and usable approach to update the GSA's Systems Development Life Cycle methodology to codify the use of incremental and agile delivery.",
-        "commonBaselineArea": "budgetExecution",
-        "dcoiArea": "nonDataCenter"
+        "id": "e222",
+        "subtitle": "A Modern Introduction to Programming",
+        "author": "Marijn Haverbeke",
+        "published": "2018-12-04T00:00:00.000Z",
+        "publisher": "No Starch Press",
+        "pages": "472",
+        "description": "JavaScript lies at the heart of almost every modern web application, from social apps like Twitter to browser-based game frameworks like Phaser and Babylon. Though simple for beginners to pick up and play with, JavaScript is a flexible, complex language that you can use to build full-scale applications.",
+        "website": "http://eloquentjavascript.net/"
       }
     },
-    "milestones21": {
-      "node_id": "milestones21",
+    "e333": {
+      "node_id": "e333",
       "attributes": {
-        "milestoneID": 2,
-        "milestoneDesc": "GSA IT is implementing a Benefits Realization program. This program will allow GSA IT to make better use of IT resources by closely linking initiative performance to tangible and intangible benefits defined and committed to by the initiative's business sponsor and the project team. The strategic framework is currently being put in place for FY2016. During FY2016 we will be targeting opportunities to test this approach. We expect to fully implement this in FY2017.",
-        "milestoneTargetCompletionDate": "2016/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "We have built the Benefits Realization approach into the GSA IT Executive Business Case (EBC) process. Users requesting new investments are required to identify and quantify projected benefits, for review and approval through GSA's governance process and the Investment Review Board (IRB). Review of project performance against scheduled benefits has also been incorporated into project reviews at the portfolio-level as well as the IRB.",
-        "commonBaselineArea": "budgetExecution",
-        "dcoiArea": "nonDataCenter"
+        "id": "e333",
+        "subtitle": "A Modern Introduction to Programming",
+        "author": "Marijn Haverbeke",
+        "published": "2018-12-04T00:00:00.000Z",
+        "publisher": "No Starch Press",
+        "pages": "472",
+        "description": "JavaScript lies at the heart of almost every modern web application, from social apps like Twitter to browser-based game frameworks like Phaser and Babylon. Though simple for beginners to pick up and play with, JavaScript is a flexible, complex language that you can use to build full-scale applications.",
+        "website": "http://eloquentjavascript.net/"
       }
     },
-    "milestones31": {
-      "node_id": "milestones31",
+    "2": {
+      "node_id": "2",
       "attributes": {
-        "milestoneID": 3,
-        "milestoneDesc": "GSA will use the FAI federal acquisition certification (FAC) framework to certify acquisition Program/Project Managers. FAI will leverage feedback from acquisition P/PMs, Acquisition Career Managers, CIOs, CAOs, CHCOs, and other Federal stakeholders of the FAC P/PM core-plus IT specialization program, to develop and refine additional core and specialty track competency models, training offerings, and certification programs for COR, P/PM and Contracting personnel.",
-        "milestoneTargetCompletionDate": "2016/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "Revised set of 16 IT PM competencies that focus on IT P/PM performance outcomes vice previous IT technically specific ones and revised IT PM courseware outline approved by the IT PM Executive Steering Board. Revised competencies and courseware outline briefed to IT PM vendors for course updates in FY17 with launch in FY18. New courseware outline will also allow COs and CORs to take advantage of the classes and provide additional focus on the procurement and operational phases of IT programs.",
-        "commonBaselineArea": "acquisition",
-        "dcoiArea": "nonDataCenter"
+        "id": "2",
+        "title": "Practical Modern JavaScript",
+        "subtitle": "Dive into ES6 and the Future of JavaScript",
+        "author": "Nicol\u00c3\u00a1s Bevacqua",
+        "published": "2017-07-16T00:00:00.000Z"
       }
     },
-    "milestones41": {
-      "node_id": "milestones41",
+    "555": {
+      "node_id": "555",
       "attributes": {
-        "milestoneID": 4,
-        "milestoneDesc": "Building on the results of FAI's IT specialization program, GSA will begin to establish criteria and initiate programs to identify and develop an IT cadre within GSA.",
-        "milestoneTargetCompletionDate": "2017/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "GSA issued a policy to implement the Information Technology Specialization for P/PMs managing IT Investments and identified employees meeting the criteria outlined in this policy that need to be FAC-P/PM certified with the IT Plus Specialization (Exhibit 300 Major IT Investments).",
-        "commonBaselineArea": "acquisition",
-        "dcoiArea": "nonDataCenter"
+        "id": "555",
+        "name": "O'Reilly Media",
+        "pages": "334",
+        "description": "To get the most out of modern JavaScript, you need learn the latest features of its parent specification, ECMAScript 6 (ES6). This book provides a highly practical look at ES6, without getting lost in the specification or its implementation details.",
+        "website": "https://github.com/mjavascript/practical-modern-javascript"
       }
     },
-    "milestones51": {
-      "node_id": "milestones51",
+    "3": {
+      "node_id": "3",
       "attributes": {
-        "milestoneID": 5,
-        "milestoneDesc": "GSA will launch an IT Acquisition Cadre Dashboard to promote transparency and accountability in the management of GSA's Capital Asset Programs (Exhibits 300).",
-        "milestoneTargetCompletionDate": "2018/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "GSA developed this dashboard on a shared drive and communicated it with the staff offices and the agency's Bureau Certification Managers. The dashboard tracks the IT Cadre's certification progress.",
-        "commonBaselineArea": "acquisition",
-        "dcoiArea": "nonDataCenter"
+        "id": "3",
+        "title": "Understanding ECMAScript 6",
+        "subtitle": "The Definitive Guide for JavaScript Developers",
+        "author": "Nicholas C. Zakas",
+        "published": "2016-09-03T00:00:00.000Z",
+        "publisher": "No Starch Press",
+        "pages": "352",
+        "description": "ECMAScript 6 represents the biggest update to the core of JavaScript in the history of the language. In Understanding ECMAScript 6, expert developer Nicholas C. Zakas provides a complete guide to the object types, syntax, and other exciting changes that ECMAScript 6 brings to JavaScript.",
+        "website": "https://leanpub.com/understandinges6/read"
       }
     },
-    "milestones61": {
-      "node_id": "milestones61",
+    "4": {
+      "node_id": "4",
       "attributes": {
-        "milestoneID": 6,
-        "milestoneDesc": "GSA plans to develop a competency model and execute assessment to evaluate skill gaps of the IT Acquisition Cadre across GSA.",
-        "milestoneTargetCompletionDate": "2019/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "GSA developed an IT competency model during FY18 and briefed all agency stakeholders including the Office of Federal Procurement Policy on 18 July 2017. GSA successfully developed and launched an IT competency assessment tool that was completed by the IT acquisition workforce members during Q3 of FY19.",
-        "commonBaselineArea": "acquisition",
-        "dcoiArea": "nonDataCenter"
+        "id": "4",
+        "title": "Speaking JavaScript",
+        "subtitle": "An In-Depth Guide for Programmers",
+        "author": "Axel Rauschmayer",
+        "published": "2014-04-08T00:00:00.000Z",
+        "publisher": "O'Reilly Media",
+        "pages": "460",
+        "description": "Like it or not, JavaScript is everywhere these days -from browser to server to mobile- and now you, too, need to learn the language or dive deeper than you have. This concise book guides you into and through JavaScript, written by a veteran programmer who once found himself in the same position.",
+        "website": "http://speakingjs.com/"
       }
     },
-    "milestones71": {
-      "node_id": "milestones71",
+    "5": {
+      "node_id": "5",
       "attributes": {
-        "milestoneID": 7,
-        "milestoneDesc": "Subject to completion of the Competency Model and Skill Gap assessment, deployment of new policy and guidance, GSA plans to deploy the specialized career path for IT Contracting Professionals.",
-        "milestoneTargetCompletionDate": "2020/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "GSA completed the analysis of the skills gap assessment, and socialized the findings with stakeholders. GSA completed policy formulation prior to September 30, 2020. The policy draft is being vetted with capacity for future development and sustainability.",
-        "commonBaselineArea": "acquisition",
-        "dcoiArea": "nonDataCenter"
+        "id": "5",
+        "title": "Learning JavaScript Design Patterns",
+        "subtitle": "A JavaScript and jQuery Developer's Guide",
+        "author": "Addy Osmani",
+        "published": "2012-08-30T00:00:00.000Z",
+        "publisher": "O'Reilly Media",
+        "pages": "254",
+        "description": "With Learning JavaScript Design Patterns, you'll learn how to write beautiful, structured, and maintainable JavaScript by applying classical and modern design patterns to the language. If you want to keep your code efficient, more manageable, and up-to-date with the latest best practices, this book is for you.",
+        "website": "http://www.addyosmani.com/resources/essentialjsdesignpatterns/book/"
       }
     },
-    "milestones81": {
-      "node_id": "milestones81",
+    "6": {
+      "node_id": "6",
       "attributes": {
-        "milestoneID": 8,
-        "milestoneDesc": "GSA may develop a cross-functional training program for acquisition IT and program personnel or other applicable methodologies to close skill gaps.",
-        "milestoneTargetCompletionDate": "2020/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "GSA has begun curriculum testing that will address core competencies in the IT Acquisition Certification Program.",
-        "commonBaselineArea": "acquisition",
-        "dcoiArea": "nonDataCenter"
+        "id": "6",
+        "title": "You Don't Know JS Yet",
+        "subtitle": "Get Started",
+        "author": "Kyle Simpson",
+        "published": "2020-01-28T00:00:00.000Z",
+        "publisher": "Independently published",
+        "pages": "143",
+        "description": "The worldwide best selling You Don't Know JS book series is back for a 2nd edition: You Don't Know JS Yet. All 6 books are brand new, rewritten to cover all sides of JS for 2020 and beyond.",
+        "website": "https://github.com/getify/You-Dont-Know-JS/tree/2nd-ed/get-started"
       }
     },
-    "milestones91": {
-      "node_id": "milestones91",
+    "7": {
+      "node_id": "7",
       "attributes": {
-        "milestoneID": 9,
-        "milestoneDesc": "GSA may explore a peer review process for IT Acquisitions.",
-        "milestoneTargetCompletionDate": "2020/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "Dependent upon completion of GSA's Competency Assessment for IT Cadre (milestone 6).",
-        "commonBaselineArea": "acquisition",
-        "dcoiArea": "nonDataCenter"
+        "id": "7",
+        "title": "Pro Git",
+        "subtitle": "Everything you neeed to know about Git",
+        "author": "Scott Chacon and Ben Straub",
+        "published": "2014-11-18T00:00:00.000Z",
+        "publisher": "Apress; 2nd edition",
+        "pages": "458",
+        "description": "Pro Git (Second Edition) is your fully-updated guide to Git and its usage in the modern world. Git has come a long way since it was first developed by Linus Torvalds for Linux kernel development. It has taken the open source world by storm since its inception in 2005, and this book teaches you how to use it like a pro.",
+        "website": "https://git-scm.com/book/en/v2"
       }
     },
-    "milestones101": {
-      "node_id": "milestones101",
+    "8": {
+      "node_id": "8",
       "attributes": {
-        "milestoneID": 10,
-        "milestoneDesc": "USSM - Established Shared Services Governance Board (SSGB) and conducted Stakeholder meetings",
-        "milestoneTargetCompletionDate": "2015/12/31",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "Update: USSM has also stood up the first Customer Council made up of senior executives representing all CFO act agencies and small agency council.",
-        "commonBaselineArea": "organizationAndWorkforce",
-        "dcoiArea": "nonDataCenter"
-      }
-    },
-    "milestones111": {
-      "node_id": "milestones111",
-      "attributes": {
-        "milestoneID": 11,
-        "milestoneDesc": "USSM - Establish new Shared Service Policy",
-        "milestoneTargetCompletionDate": "2016/05/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "The new Shared Service Policy will focus on: 1) establishing USSM and SSGB as authority for shared services; 2) mandating USSM review of all future investments; 3) redefining the role of the Lines of Business; 4) achieving Common Interpretation of Franchise Fund Authority; and 5) identifying central funding options.",
-        "commonBaselineArea": "organizationAndWorkforce",
-        "dcoiArea": "nonDataCenter"
-      }
-    },
-    "milestones121": {
-      "node_id": "milestones121",
-      "attributes": {
-        "milestoneID": 12,
-        "milestoneDesc": "USSM - Advance Human Capital",
-        "milestoneTargetCompletionDate": "2016/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "Update: USSM and the cross-agency IPT (made up of all five payroll providers) will issue a payroll RFI by the end of July to better understand what products and services are available in industry to inform a larger strategy for the replacement of legacy payroll systems.",
-        "commonBaselineArea": "organizationAndWorkforce",
-        "dcoiArea": "nonDataCenter"
-      }
-    },
-    "milestones131": {
-      "node_id": "milestones131",
-      "attributes": {
-        "milestoneID": 13,
-        "milestoneDesc": "USSM - Increase Adoption",
-        "milestoneTargetCompletionDate": "2016/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "Update: The M3 Playbook (Modernization, modernization, and management) is being issued by July 31 after months of cross-agency collaboration on the best content and practices. In addition, the USSM oversight investment review process is officially in place with support from OMB (both management and budget).",
-        "commonBaselineArea": "organizationAndWorkforce",
-        "dcoiArea": "nonDataCenter"
-      }
-    },
-    "milestones141": {
-      "node_id": "milestones141",
-      "attributes": {
-        "milestoneID": 14,
-        "milestoneDesc": "USSM - Provider Accountability",
-        "milestoneTargetCompletionDate": "2016/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "Update: The first-ever ProviderStat data call was completed by end of May, 2016. The data will be used to host ten ProviderStat meetings convened by OMB and USSM this summer, and will inform the establishment of common metrics and services via a catalog by Nov 2016.",
-        "commonBaselineArea": "organizationAndWorkforce",
-        "dcoiArea": "nonDataCenter"
-      }
-    },
-    "milestones151": {
-      "node_id": "milestones151",
-      "attributes": {
-        "milestoneID": 15,
-        "milestoneDesc": "Concurrently, the Offices of Government Policy, Human Resources Management, and GSA IT have been engaged in workforce planning efforts that are focused on IT professionals, IT Project Management Professionals, and IT Acquisition professionals. We expect to implement the outcomes of the competency/skills assessment in FY2016",
-        "milestoneTargetCompletionDate": "2016/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "1) Completed 100% of IDPs for the 2210 series, 2) Identified appropriate training courses or conference events to enhance indicated skill set areas; 3) Implemented VERA/VSIP to over 100 GSA IT employees with a 1:1 backfill strategy to refresh workforce skill set; 4) Implementing an insourcing strategy to insource over 43 contractors that perform mission critical functions to federal government employees.",
-        "commonBaselineArea": "organizationAndWorkforce",
-        "dcoiArea": "nonDataCenter"
-      }
-    },
-    "milestones161": {
-      "node_id": "milestones161",
-      "attributes": {
-        "milestoneID": 16,
-        "milestoneDesc": "Increase tiered server monitoring to 50% in FY17.As GSA moves to another colocation arrangement, we will focus in FY17 on tiered data centers and increasing server monitoring across the environment. This is aided by the implementation of CDM as GSA will be touching all server assets.",
-        "milestoneTargetCompletionDate": "2017/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "Phase 1 is now complete, Phase 2 is now underway, which involves the implementation of automated monitoring for tiered systems working. GSA intends to complete this by the end of the 2017 Fiscal Year.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "optimization"
-      }
-    },
-    "milestones171": {
-      "node_id": "milestones171",
-      "attributes": {
-        "milestoneID": 17,
-        "milestoneDesc": "Close 3 tiered data centers in FY17. GSA will be involved in a major colocation during FY17. With resources focused on that activity, GSA will be limited to closing 3 tiered data centers, either through cleansing and refining the current data and/or moving resources to the colocation.",
-        "milestoneTargetCompletionDate": "2017/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "Three tiered data centers (in regions 4, 5, and 8) have been closed in FY17. Several locations were previously erroneously reported, but the data has been corrected and validated, resulting in several sites being updated to invalid and sites changed to colocation.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "closures"
-      }
-    },
-    "milestones181": {
-      "node_id": "milestones181",
-      "attributes": {
-        "milestoneID": 18,
-        "milestoneDesc": "Achieve or exceed OMB's Agency-specific cost savings target of $8.35M as provided in calculations of Data Center Labor, Hardware, Software, Electricity, and Facilities costs from the IT Dashboard.",
-        "milestoneTargetCompletionDate": "2018/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "GSA has exceeded OMB target of $8.35M cumulative cost savings (FY16-FY18) by $0.46M. More specifically, cost savings of 6.57 (FY16), 0.80 (FY17) and 1.44 (FY18) were achieved.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "costSavings"
-      }
-    },
-    "milestones191": {
-      "node_id": "milestones191",
-      "attributes": {
-        "milestoneID": 19,
-        "milestoneDesc": "Improve data center power usage effectiveness (PUE) to 1.9 in FY17. To improve PUE, GSA IT is exploring options like self-contained cooling and increasing the overall temperature targets of its data centers.",
-        "milestoneTargetCompletionDate": "2017/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "OMB is now calculating PUE on a rolling 4 quarters basis. We achieved 1.9 but as moves continue to happen the number is constantly changing. It should be noted that the majority of GSA's server inventory is housed at two co-location (NASA and EPA) facilities with operating PUE values of 1.5 or less.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "optimization"
-      }
-    },
-    "milestones201": {
-      "node_id": "milestones201",
-      "attributes": {
-        "milestoneID": 20,
-        "milestoneDesc": "Increase data center power metering to 100% in FY2017. As GSA moves to its colocation, the energy metering implementation should improve to 100% in FY17.",
-        "milestoneTargetCompletionDate": "2017/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "GSA continues to migrate workloads from smaller, tiered data centers to shared service providers or agency-owned data centers that provide energy metering services. Initial deployment of workloads began in January 2017, with additional workloads to follow. For tiered data center power metering, GSA is currently at 100%.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "optimization"
-      }
-    },
-    "milestones211": {
-      "node_id": "milestones211",
-      "attributes": {
-        "milestoneID": 21,
-        "milestoneDesc": "Increase automated monitoring of server utilization to 100% in FY18, including agency-owned and co-location facilities.",
-        "milestoneTargetCompletionDate": "2018/01/31",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "GSA has completed implementation of automated monitoring of server utilization at all agency-owned and co-location facilities. Only agency-owned data centers are required to have automated monitoring; however, GSA has gone beyond such requirements and monitor servers hosted at co-location sites.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "optimization"
-      }
-    },
-    "milestones221": {
-      "node_id": "milestones221",
-      "attributes": {
-        "milestoneID": 22,
-        "milestoneDesc": "Close 1 agency-owned, tiered data center in FY18 by migrating to inter-agency shared services or co-location data centers.",
-        "milestoneTargetCompletionDate": "2018/01/31",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "GSA closed an agency-owned, tiered data center and migrated applications to a more efficient, co-location data center housed at the EPA National Computing Center (NCC). The EPA entered into a 5-year agreement with GSA to provide data center hosting services at the NCC. This began in Sep 2016 as a phased deployment that allows GSA to strategically optimize its data center footprint and reduce operating costs over the next several years.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "closures"
-      }
-    },
-    "milestones231": {
-      "node_id": "milestones231",
-      "attributes": {
-        "milestoneID": 23,
-        "milestoneDesc": "Quality at least one certified Data Center Energy Practitioner (DCEP) assigned to manage the performance of data centers",
-        "milestoneTargetCompletionDate": "2018/01/31",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "One employee has completed DCEP certification",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "optimization"
-      }
-    },
-    "milestones241": {
-      "node_id": "milestones241",
-      "attributes": {
-        "milestoneID": 24,
-        "milestoneDesc": "Close the last agency-owned, tiered data center by migrating workloads to shared service providers, or more optimized data centers within the agency's data center inventory",
-        "milestoneTargetCompletionDate": "2019/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "GSA continues to migrate workloads. In the interim, facility utilization at agency-owned facilities will decrease. Efforts are underway to further right-size the server room into a smaller, non-tier location.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "closures"
-      }
-    },
-    "milestones251": {
-      "node_id": "milestones251",
-      "attributes": {
-        "milestoneID": 25,
-        "milestoneDesc": "Conduct migration execution activities to perform data center consolidation activities for GSA ServMart locations.",
-        "milestoneTargetCompletionDate": "2020/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "While no longer considered valid data centers per FY19 OMB Integrated Data Collection guidance, GSA continues to migrate server workloads hosted at small co-location facilities at GSA ServMarts on military facilities to be migrated to and consolidated at enteprise-class tiered data centers. May be delayed until FY21 due to Covid-19 response activities.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "closures"
-      }
-    },
-    "milestones261": {
-      "node_id": "milestones261",
-      "attributes": {
-        "milestoneID": 26,
-        "milestoneDesc": "Conduct internal migration execution activities as a tenant of NASA NCCIPS Stennis, which will improve overall facility utilization at this co-location data center.",
-        "milestoneTargetCompletionDate": "2020/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "Starting in Q1/Q2 FY2019, GSA and NASA are conducting initial planning activities related to timeline, scope and cost estimates.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "sharedServices"
-      }
-    },
-    "milestones271": {
-      "node_id": "milestones271",
-      "attributes": {
-        "milestoneID": 27,
-        "milestoneDesc": "Develop FY2019 Data Center Optimization Plan Strategy.",
-        "milestoneTargetCompletionDate": "2019/02/15",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "Published the FY2019 strategy for data center optimization (via JSON file) along with CIO statement per revised OMB guidance and deadline.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "optimization"
-      }
-    },
-    "milestones281": {
-      "node_id": "milestones281",
-      "attributes": {
-        "milestoneID": 28,
-        "milestoneDesc": "Develop FY2020 Data Center Optimization Plan Strategy.",
-        "milestoneTargetCompletionDate": "2020/02/14",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "Develop FY2020 strategy for data center optimization and submit per updated OMB guidance and deadline.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "optimization"
-      }
-    },
-    "milestones291": {
-      "node_id": "milestones291",
-      "attributes": {
-        "milestoneID": 29,
-        "milestoneDesc": "Achieve Full DCOI Compliance in accordance with OMB Memo M-16-19.",
-        "milestoneTargetCompletionDate": "2019/11/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "During OMB Memo M-16-19 period (FY16-FY18), GSA was fully compliant with all requirements: (1) Closures: GSA closed more than 120 data centers (tiered and non-tiered), exceeding the 25% tiered and 60% non-tiered data center OMB target; (2) Cost Savings: GSA achieved $8.81M in savings; exceeding OMB target goal of $8.35M. (3) Optimization Metrics: By Q4FY2018, GSA had no data centers with required metrics. As a result, GSA achieved full compliance across all 3 primary measures.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "optimization"
-      }
-    },
-    "milestones301": {
-      "node_id": "milestones301",
-      "attributes": {
-        "milestoneID": 30,
-        "milestoneDesc": "Achieve Full DCOI Compliance in accordance with OMB Memo M-19-19.",
-        "milestoneTargetCompletionDate": "2019/09/30",
-        "milestoneStatus": "Complete",
-        "milestoneStatusDesc": "During the current period covered by OMB Memo M-19-19 (FY19-FY20), GSA continues to report quarterly inventory data. Of note, GSA no longer operates any agency-owned tiered data centers and therefore, all optimization metrics are Not Applicable (N/A). In addition, GSA does not have any closures or cost savings expected in FY19-20. As a result, GSA appears to have achieved full compliance.",
-        "commonBaselineArea": "nonCommonBaseline",
-        "dcoiArea": "optimization"
-      }
-    },
-    "stories1": {
-      "node_id": "stories1",
-      "attributes": {
-        "name": "story1",
-        "exp": "This is a story1"
+        "id": "8",
+        "title": "Rethinking Productivity in Software Engineering",
+        "subtitle": "",
+        "author": "Caitlin Sadowski, Thomas Zimmermann",
+        "published": "2019-05-11T00:00:00.000Z",
+        "publisher": "Apress",
+        "pages": "310",
+        "description": "Get the most out of this foundational reference and improve the productivity of your software teams. This open access book collects the wisdom of the 2017 \"Dagstuhl\" seminar on productivity in software engineering, a meeting of community leaders, who came together with the goal of rethinking traditional definitions and measures of productivity.",
+        "website": "https://doi.org/10.1007/978-1-4842-4221-6"
       }
     }
   },
@@ -381,7 +149,7 @@
         "node_id": "root1"
       },
       "destination": {
-        "node_id": "milestones11"
+        "node_id": "1"
       }
     },
     {
@@ -389,7 +157,7 @@
         "node_id": "root1"
       },
       "destination": {
-        "node_id": "milestones21"
+        "node_id": "2"
       }
     },
     {
@@ -397,7 +165,7 @@
         "node_id": "root1"
       },
       "destination": {
-        "node_id": "milestones31"
+        "node_id": "3"
       }
     },
     {
@@ -405,7 +173,7 @@
         "node_id": "root1"
       },
       "destination": {
-        "node_id": "milestones41"
+        "node_id": "4"
       }
     },
     {
@@ -413,7 +181,7 @@
         "node_id": "root1"
       },
       "destination": {
-        "node_id": "milestones51"
+        "node_id": "5"
       }
     },
     {
@@ -421,7 +189,7 @@
         "node_id": "root1"
       },
       "destination": {
-        "node_id": "milestones61"
+        "node_id": "6"
       }
     },
     {
@@ -429,7 +197,7 @@
         "node_id": "root1"
       },
       "destination": {
-        "node_id": "milestones71"
+        "node_id": "7"
       }
     },
     {
@@ -437,207 +205,55 @@
         "node_id": "root1"
       },
       "destination": {
-        "node_id": "milestones81"
+        "node_id": "8"
       }
     },
     {
       "source": {
-        "node_id": "root1"
+        "node_id": "1"
       },
       "destination": {
-        "node_id": "milestones91"
+        "node_id": "e222"
       }
     },
     {
       "source": {
-        "node_id": "root1"
+        "node_id": "1"
       },
       "destination": {
-        "node_id": "milestones101"
+        "node_id": "e333"
       }
     },
     {
       "source": {
-        "node_id": "root1"
+        "node_id": "e333"
       },
       "destination": {
-        "node_id": "milestones111"
+        "node_id": "2"
       }
     },
     {
       "source": {
-        "node_id": "root1"
+        "node_id": "e333"
       },
       "destination": {
-        "node_id": "milestones121"
+        "node_id": "3"
       }
     },
     {
       "source": {
-        "node_id": "root1"
+        "node_id": "e333"
       },
       "destination": {
-        "node_id": "milestones131"
+        "node_id": "4"
       }
     },
     {
       "source": {
-        "node_id": "root1"
+        "node_id": "2"
       },
       "destination": {
-        "node_id": "milestones141"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones151"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones161"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones171"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones181"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones191"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones201"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones211"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones221"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones231"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones241"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones251"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones261"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones271"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones281"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones291"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "milestones301"
-      }
-    },
-    {
-      "source": {
-        "node_id": "root1"
-      },
-      "destination": {
-        "node_id": "stories1"
-      }
-    },
-    {
-      "source": {
-        "node_id": "milestones21"
-      },
-      "destination": {
-        "node_id": "milestones11"
-      }
-    },
-    {
-      "source": {
-        "node_id": "milestones21"
-      },
-      "destination": {
-        "node_id": "milestones31"
+        "node_id": "555"
       }
     }
   ]

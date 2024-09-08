@@ -3,6 +3,8 @@ import os.path
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
@@ -20,10 +22,19 @@ def index(request):
         os.remove(storage_path)
     return render(request, 'index.html', )
 
-
-@require_http_methods(["GET"])
+@csrf_exempt
+@require_http_methods(["POST"])
 def get_graph_data(request):
     logger.info("get_graph_data view called")
+    logger.info(f"Request method: {request.method}")
+    logger.info(f"Request content type: {request.content_type}")
+    logger.info(f"Request POST data: {request.POST}")
+    logger.info(f"Request FILES: {request.FILES}")
+
+    # Check if the request has the file
+    if 'file' not in request.FILES:
+        logger.error("No file in request")
+        return JsonResponse({"error": "No file uploaded"}, status=400)
 
     # Get the loader plugins
     loader_plugins = apps.get_app_config("core").loader_plugins
@@ -34,20 +45,33 @@ def get_graph_data(request):
         return JsonResponse({"error": "JSON loader not found"}, status=400)
 
     try:
-        # Load your JSON data
-        json_data = json_loader.load(
-            'F:/skola/FTN/SOIK Softverski obrasci i komponente/GRAPH VISUALIZER/testData.json')  # Replace with actual path
+        # Get the uploaded file
+        uploaded_file = request.FILES['file']
+        logger.info(f"Uploaded file name: {uploaded_file.name}")
+        logger.info(f"Uploaded file size: {uploaded_file.size}")
+
+        # Save the uploaded file temporarily
+        temp_file_path = default_storage.save('temp_uploads/temp_file.json', ContentFile(uploaded_file.read()))
+        temp_file_path = os.path.join(settings.MEDIA_ROOT, temp_file_path)
+        logger.info(f"Temporary file saved at: {temp_file_path}")
+
+        # Load the uploaded JSON data
+        json_data = json_loader.load(temp_file_path)
+        logger.info("JSON data loaded successfully")
 
         # Create or get a Graph object
-        graph_name = "Test Graph"  # or request.GET.get('graph_name', 'Default Graph')
+        graph_name = "Uploaded Graph"
         graph, created = Graph.objects.get_or_create(name=graph_name)
+        logger.info(f"Graph {'created' if created else 'retrieved'}: {graph.name}")
 
         # Clear existing nodes and edges for this graph
         Node.objects.filter(graph=graph).delete()
         Edge.objects.filter(graph=graph).delete()
+        logger.info("Existing nodes and edges cleared")
 
         # Map the JSON data to the graph
         json_loader.map_to_graph(json_data, graph)
+        logger.info("JSON data mapped to graph")
 
         # Prepare the data for storage
         nodes = {}
@@ -66,23 +90,23 @@ def get_graph_data(request):
             "edges": edges
         }
 
-        json_data = json.dumps(response_data, indent=2, default=str)
-        response = HttpResponse(json_data, content_type='application/json')
-
-        # Define the path for the server-side storage
-        storage_path = os.path.join(settings.BASE_DIR, 'temp_graph_data.json')
-
-
         # Save the data to a file on the server
+        storage_path = os.path.join(settings.BASE_DIR, 'temp_graph_data.json')
         with open(storage_path, 'w') as f:
             json.dump(response_data, f, indent=2, default=str)
 
-        logger.info("Graph data saved to server")
-        return response
+        logger.info(f"Graph data saved to server at: {storage_path}")
+
+        # Clean up the temporary uploaded file
+        os.remove(temp_file_path)
+        logger.info("Temporary file removed")
+
+        return JsonResponse(response_data)
 
     except Exception as e:
-        logger.exception(f"Error in get_graph_data: {str(e)}")
+        logger.error(f"Error in get_graph_data: {str(e)}", exc_info=True)
         return JsonResponse({"error": str(e)}, status=500)
+
 
 
 @csrf_exempt  # Remove this if you're using CSRF tokens in production
