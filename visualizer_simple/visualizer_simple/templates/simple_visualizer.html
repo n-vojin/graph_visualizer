@@ -1,0 +1,237 @@
+<script>
+    let simulation;
+    let svg, g, birdSvg, birdG;
+    let width = 900, height = 600;
+    let birdWidth = 300, birdHeight = 200;
+    let selectedNode = null;
+    let nodeElements, birdNodeElements;
+
+    function initializeGraph() {
+        d3.select("#graph").selectAll("*").remove();
+        d3.select("#bird-view").selectAll("*").remove();
+
+        svg = d3.select("#graph")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        g = svg.append("g");
+
+        birdSvg = d3.select("#bird-view")
+            .append("svg")
+            .attr("width", birdWidth)
+            .attr("height", birdHeight);
+
+        birdG = birdSvg.append("g");
+
+        const zoom = d3.zoom()
+            .scaleExtent([0.1, 4])
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+                updateBirdViewport(event.transform);
+            });
+
+        svg.call(zoom);
+
+        simulation = d3.forceSimulation()
+            .force("link", d3.forceLink().id(d => d.id).distance(150))
+            .force("charge", d3.forceManyBody().strength(-100))
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force("collide", d3.forceCollide().radius(30));
+
+        return { g, birdG };
+    }
+
+    function loadGraph() {
+        const { g, birdG } = initializeGraph();
+
+        $.ajax({
+            url: '/fetch_graph_data/',
+            method: 'GET',
+            dataType: 'json',
+            success: function(graph) {
+                const nodes = Object.values(graph.nodes).map(node => ({
+                    id: node.node_id,
+                    x: Math.random() * width,
+                    y: Math.random() * height
+                }));
+
+                const links = graph.edges.map(edge => ({
+                    source: edge.source.node_id,
+                    target: edge.destination.node_id
+                }));
+
+                const link = g.append("g")
+                    .attr("stroke", "#999")
+                    .attr("stroke-opacity", 0.6)
+                    .selectAll("line")
+                    .data(links)
+                    .join("line")
+                    .attr("stroke-width", 2);
+
+                nodeElements = g.append("g")
+                    .attr("stroke", "#fff")
+                    .attr("stroke-width", 1.5)
+                    .selectAll("circle")
+                    .data(nodes)
+                    .join("circle")
+                    .attr("r", 10)
+                    .attr("fill", "#69b3a2")
+                    .attr("id", d => d.id)
+                    .call(drag(simulation))
+                    .on("click", clicked);
+
+                nodeElements.append("title")
+                    .text(d => d.id);
+
+                const labels = g.append("g")
+                    .attr("class", "labels")
+                    .selectAll("text")
+                    .data(nodes)
+                    .enter()
+                    .append("text")
+                    .text(d => d.id)
+                    .attr("font-size", "10px")
+                    .attr("dx", 12)
+                    .attr("dy", 4);
+
+                const birdLink = birdG.append("g")
+                    .attr("stroke", "#999")
+                    .attr("stroke-opacity", 0.6)
+                    .selectAll("line")
+                    .data(links)
+                    .join("line")
+                    .attr("stroke-width", 1);
+
+                birdNodeElements = birdG.append("g")
+                    .selectAll("circle")
+                    .data(nodes)
+                    .join("circle")
+                    .attr("r", 4)
+                    .attr("fill", "#69b3a2")
+                    .attr("id", d => `bird-${d.id}`);
+
+                const viewport = birdSvg.append("rect")
+                    .attr("stroke", "red")
+                    .attr("stroke-width", 2)
+                    .attr("fill", "none");
+
+                simulation
+                    .nodes(nodes)
+                    .on("tick", ticked);
+
+                simulation.force("link")
+                    .links(links);
+
+                function ticked() {
+                    link
+                        .attr("x1", d => d.source.x)
+                        .attr("y1", d => d.source.y)
+                        .attr("x2", d => d.target.x)
+                        .attr("y2", d => d.target.y);
+
+                    nodeElements
+                        .attr("cx", d => d.x)
+                        .attr("cy", d => d.y);
+
+                    labels
+                        .attr("x", d => d.x)
+                        .attr("y", d => d.y);
+
+                    birdLink
+                        .attr("x1", d => d.source.x * birdWidth / width)
+                        .attr("y1", d => d.source.y * birdHeight / height)
+                        .attr("x2", d => d.target.x * birdWidth / width)
+                        .attr("y2", d => d.target.y * birdHeight / height);
+
+                    birdNodeElements
+                        .attr("cx", d => d.x * birdWidth / width)
+                        .attr("cy", d => d.y * birdHeight / height);
+                }
+
+                updateBirdViewport(d3.zoomIdentity);
+
+                function clicked(event, d) {
+                    highlightNode(d.id);
+                    // Trigger click on the corresponding tree node
+                    $(`#graph-tree li[data-id="${d.id}"]`).click();
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Nothing to visualize");
+                console.error("Error fetching graph data:", textStatus, errorThrown);
+            }
+        });
+    }
+
+    function updateBirdViewport(transform) {
+        const viewport = birdSvg.select("rect");
+        const scale = transform.k;
+        const translateX = transform.x;
+        const translateY = transform.y;
+
+        const vpWidth = birdWidth / scale;
+        const vpHeight = birdHeight / scale;
+        const vpX = (-translateX / scale) * (birdWidth / width);
+        const vpY = (-translateY / scale) * (birdHeight / height);
+
+        viewport
+            .attr("x", vpX)
+            .attr("y", vpY)
+            .attr("width", vpWidth)
+            .attr("height", vpHeight);
+    }
+
+    function drag(simulation) {
+        function dragstarted(event) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            event.subject.fx = event.subject.x;
+            event.subject.fy = event.subject.y;
+        }
+
+        function dragged(event) {
+            event.subject.fx = event.x;
+            event.subject.fy = event.y;
+        }
+
+        function dragended(event) {
+            if (!event.active) simulation.alphaTarget(0);
+            event.subject.fx = null;
+            event.subject.fy = null;
+        }
+
+        return d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended);
+    }
+
+    function highlightNode(nodeId) {
+        if (selectedNode) {
+            nodeElements.filter(d => d.id === selectedNode)
+                .attr("fill", "#69b3a2")
+                .attr("r", 10);
+            birdNodeElements.filter(d => d.id === selectedNode)
+                .attr("fill", "#69b3a2")
+                .attr("r", 4);
+        }
+        selectedNode = nodeId;
+        nodeElements.filter(d => d.id === nodeId)
+            .attr("fill", "red")
+            .attr("r", 12);
+        birdNodeElements.filter(d => d.id === nodeId)
+            .attr("fill", "red")
+            .attr("r", 4);
+    }
+
+    $(document).ready(function() {
+        $("#visualiseButton").click(loadGraph);
+        loadGraph(); // Initial load
+
+        // Listen for node selection in the tree view
+        $('#graph-tree').on('click', 'li', function(e) {
+            const nodeId = $(this).data('id');
+            highlightNode(nodeId);
+        });
+    });
+</script>

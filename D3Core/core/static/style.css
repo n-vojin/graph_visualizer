@@ -2,12 +2,31 @@
   background-color: #406882;
   width: 100%;
   padding: 10px;
-  display: block;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.node-details{
+  border: 2px solid #1a374d;
+  border-radius: 10px;
+  width: 40%;
+  height: 140px;
+  padding-left: 7px;
+  background-color: #cfeaff;
+  margin-right:10px
+}
+
+#details {
+    width:100%;
+    height: 110px;
+    padding-bottom: 8px;
+    overflow-y: auto;
 }
 
 table {
   border-spacing: 7px;
-  width: 80%;
+  width: 40%;
   text-align: left;
 }
 
@@ -54,12 +73,13 @@ td {
   width: 95%;
 }
 
-#choose-loader {
-  width: 110%;
+#choose-loader,
+#choose-visualizer{
+  width: 11 0%;
 }
 
 .container {
-  height: 82%;
+  height: 85%;
   box-sizing: border-box;
   display: flex;
   padding-left: 10px;
@@ -70,6 +90,7 @@ td {
   border: 2px solid #406882;
   border-radius: 15px;
   padding: 1rem;
+  padding-right: 0;
   margin-top: 5px;
 }
 
@@ -82,13 +103,46 @@ td {
   margin-top: 5px;
 }
 
+ #graph { width: 100vw; height: calc(100vh - 50px); }
+
+#graph-tree {
+    height: 100%;
+  overflow-y:auto;
+}
+
 #bird-view {
   position: fixed;
-  bottom: 2rem;
+  bottom: 1.5rem;
   right: 1.5rem;
   width: 300px;
   height: 200px;
   padding: 1rem;
   border: 2px solid #406882;
   border-radius: 15px;
+  background-color: #cfeaff;
 }
+
+
+
+ .tree-view ul {
+            list-style-type: none;
+            padding-left: 20px;
+ }
+ .tree-view li {
+     cursor: pointer;
+     user-select: none;
+ }
+ .tree-view .selected {
+     color: red;
+ }
+ .tree-view .collapsed::before {
+     content: '▶ ';
+ }
+ .tree-view .expanded::before {
+     content: '▼ ';
+ }
+ .tree-view .attributes {
+     font-size: 0.9em;
+     color: #666;
+     margin-left: 20px;
+ }

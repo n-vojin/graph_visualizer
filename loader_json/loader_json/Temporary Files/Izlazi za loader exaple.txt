@@ -1,0 +1,73 @@
+For dummy_data_1:
+
+Graph structure for Test Graph 1:
+Node: root1
+  name: Root Node
+  id: root1
+  Node: child1
+    name: Child 1
+    id: child1
+    value: 10
+  Node: child2
+    name: Child 2
+    id: child2
+    Node: nested1
+      name: Nested Child
+      id: nested1
+
+Edges:
+  root1 -> child1
+  root1 -> child2
+  child2 -> nested1
+
+
+
+For dummy_data_2:
+
+Graph structure for Test Graph 1:
+Node: root1
+  name: Root Node
+  id: root1
+  Node: child1
+    name: Child 1
+    id: child1
+    value: 10
+  Node: child2
+    name: Child 2
+    id: child2
+    Node: nested1
+      name: Nested Child
+      id: nested1
+
+Edges:
+  root1 -> child1
+  root1 -> child2
+  child2 -> nested1
+
+
+
+For dummy_data_3:
+
+Graph structure for Test Graph 2:
+Node: person_{id}
+  name: John Doe
+  age: 30
+  Node: address_{id}
+    street: 123 Main St
+    city: Anytown
+  Node: hobbies_{id}
+    0: reading
+    1: cycling
+  Node: family_0_{id}
+    relation: spouse
+    name: Jane Doe
+  Node: family_1_{id}
+    relation: child
+    name: Jimmy Doe
+    age: 5
+
+Edges:
+  person_{id} -> address_{id}
+  person_{id} -> hobbies_{id}
+  person_{id} -> family_0_{id}
+  person_{id} -> family_1_{id}

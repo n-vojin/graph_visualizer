@@ -3,11 +3,16 @@ from django.apps import AppConfig
 
 
 class D3CoreConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
     name = 'core'
-    #plugini_ucitavanje=[]
+    loader_plugins = []
+    visualizer_plugins = []
+    graph = None
 
-    #def ready(self):
-    #    self.plugini_ucitavanje=load_plugins("prodavnica.ucitati")
+    def ready(self):
+        self.loader_plugins = load_plugins("loader")
+        self.visualizer_plugins = load_plugins("visualizer")
+
 
 def load_plugins(oznaka):
     plugins = []
