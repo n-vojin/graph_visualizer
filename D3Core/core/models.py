@@ -70,6 +70,7 @@ def add_edge(graph, source_node, destination_node):
     )
     return edge
 
+
 def remove_node(graph, node_id):
     """
     Removes a node and all its associated edges from the graph.
