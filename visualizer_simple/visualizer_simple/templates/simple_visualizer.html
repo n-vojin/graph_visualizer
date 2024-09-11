@@ -5,6 +5,7 @@
     let birdWidth = 300, birdHeight = 200;
     let selectedNode = null;
     let nodeElements, birdNodeElements;
+    const birdViewScale = 0.5; // Adjust this value to control how "zoomed out" the bird's view is
 
     function initializeGraph() {
         d3.select("#graph").selectAll("*").remove();
@@ -35,8 +36,8 @@
 
         simulation = d3.forceSimulation()
             .force("link", d3.forceLink().id(d => d.id).distance(150))
-            .force("charge", d3.forceManyBody().strength(-100))
-            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force("charge", d3.forceManyBody().strength(-80))
+            .force("center", d3.forceCenter(width, height))
             .force("collide", d3.forceCollide().radius(30));
 
         return { g, birdG };
@@ -107,13 +108,13 @@
                     .selectAll("circle")
                     .data(nodes)
                     .join("circle")
-                    .attr("r", 4)
+                    .attr("r", 5 * birdViewScale) // Smaller radius
                     .attr("fill", "#69b3a2")
                     .attr("id", d => `bird-${d.id}`);
 
                 const viewport = birdSvg.append("rect")
                     .attr("stroke", "red")
-                    .attr("stroke-width", 2)
+                    .attr("stroke-width", 1)
                     .attr("fill", "none");
 
                 simulation
@@ -139,14 +140,14 @@
                         .attr("y", d => d.y);
 
                     birdLink
-                        .attr("x1", d => d.source.x * birdWidth / width)
-                        .attr("y1", d => d.source.y * birdHeight / height)
-                        .attr("x2", d => d.target.x * birdWidth / width)
-                        .attr("y2", d => d.target.y * birdHeight / height);
+                        .attr("x1", d => d.source.x * birdWidth / width * birdViewScale)
+                        .attr("y1", d => d.source.y * birdHeight / height * birdViewScale)
+                        .attr("x2", d => d.target.x * birdWidth / width * birdViewScale)
+                        .attr("y2", d => d.target.y * birdHeight / height * birdViewScale);
 
                     birdNodeElements
-                        .attr("cx", d => d.x * birdWidth / width)
-                        .attr("cy", d => d.y * birdHeight / height);
+                        .attr("cx", d => d.x * birdWidth / width * birdViewScale)
+                        .attr("cy", d => d.y * birdHeight / height * birdViewScale);
                 }
 
                 updateBirdViewport(d3.zoomIdentity);
@@ -164,23 +165,26 @@
         });
     }
 
-    function updateBirdViewport(transform) {
-        const viewport = birdSvg.select("rect");
-        const scale = transform.k;
-        const translateX = transform.x;
-        const translateY = transform.y;
+function updateBirdViewport(transform) {
+    const viewport = birdSvg.select("rect");
+    const scale = transform.k;
+    const translateX = transform.x;
+    const translateY = transform.y;
 
-        const vpWidth = birdWidth / scale;
-        const vpHeight = birdHeight / scale;
-        const vpX = (-translateX / scale) * (birdWidth / width);
-        const vpY = (-translateY / scale) * (birdHeight / height);
+    // Adjust the viewport size calculation
+    const vpWidth = (birdWidth / scale) * birdViewScale;
+    const vpHeight = (birdHeight / scale) * birdViewScale;
 
-        viewport
-            .attr("x", vpX)
-            .attr("y", vpY)
-            .attr("width", vpWidth)
-            .attr("height", vpHeight);
-    }
+    // Keep the positioning calculation as before
+    const vpX = (-translateX / scale) * (birdWidth / width) * birdViewScale;
+    const vpY = (-translateY / scale) * (birdHeight / height) * birdViewScale;
+
+    viewport
+        .attr("x", vpX)
+        .attr("y", vpY)
+        .attr("width", vpWidth)
+        .attr("height", vpHeight);
+}
 
     function drag(simulation) {
         function dragstarted(event) {
@@ -213,7 +217,7 @@
                 .attr("r", 10);
             birdNodeElements.filter(d => d.id === selectedNode)
                 .attr("fill", "#69b3a2")
-                .attr("r", 4);
+                .attr("r", 5 * birdViewScale);
         }
         selectedNode = nodeId;
         nodeElements.filter(d => d.id === nodeId)
@@ -221,7 +225,7 @@
             .attr("r", 12);
         birdNodeElements.filter(d => d.id === nodeId)
             .attr("fill", "red")
-            .attr("r", 4);
+            .attr("r", 5 * birdViewScale);
     }
 
     $(document).ready(function() {
