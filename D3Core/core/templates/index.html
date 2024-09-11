@@ -233,12 +233,16 @@
 
         $('#loadGraphBtn').click(function() {
             $('#graph-tree').empty();
+            $('#graph-tree').html("Loading...");
             $('#details').empty();
 
             d3.select("#graph").selectAll("*").remove();
             d3.select("#bird-view").selectAll("*").remove();
 
             var fileInput = $('#fileInput')[0];
+               if (fileInput.files.length === 0) {
+                   $('#graph-tree').empty();
+               }
                if (fileInput.files.length === 0) {
                    alert("Please select a file first.");
                    return;
@@ -249,12 +253,18 @@
 
 
             var selectedLoader = $('#choose-loader').val();
+
+            if (!selectedLoader) {
+                $('#graph-tree').empty();
+            }
+
             if (!selectedLoader) {
                 alert('Please select a loader plugin first.');
                 return;
             }
 
             $.ajax({
+
                 url: '/get_graph_data/',
                 method: 'POST',
                 data: formData,
@@ -262,6 +272,7 @@
                 contentType: false,
                 success: function(data) {
                     const treeHtml = buildTree(data);
+                    $('#graph-tree').empty();
                     $('#graph-tree').html(treeHtml);
                 },
                 error: function(error) {
