@@ -1,0 +1,32 @@
+{
+  "example_data": [
+    {
+      "id": "p1",
+      "name": "I'm parent",
+      "children": [
+        {
+          "id": "c1",
+          "name": "I'm first child",
+          "reference": "1"
+        },
+        {
+          "id": "c2",
+          "name": "I'm second child",
+          "reference": "1"
+        }
+      ]
+    },
+    {
+      "id": "p2",
+      "name": "I have no children",
+      "children": [],
+      "some_other_attributes": "Foster",
+      "reference": ["c1", "c2"]
+    },
+    {
+      "id": "p3",
+      "name": "I'm other parent",
+      "reference": "p1"
+    }
+  ]
+}

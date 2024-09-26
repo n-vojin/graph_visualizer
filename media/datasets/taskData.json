@@ -1,0 +1,390 @@
+{
+  "project": [
+    {
+      "name": "Graph Database",
+      "tasks": [
+        {
+          "id": "task1",
+          "name": "Design Schema",
+          "assigned_to": "Alice",
+          "reference": ["task3"]
+        },
+        {
+          "id": "task2",
+          "name": "Implement Backend",
+          "assigned_to": "Bob",
+          "subtasks": [
+            {
+              "name": "Set up database",
+              "status": "completed"
+            },
+            {
+              "name": "Create API",
+              "status": "in_progress"
+            }
+          ]
+        },
+        {
+          "id": "task3",
+          "name": "Implement Frontend",
+          "assigned_to": "Mike",
+          "subtasks": [
+            {
+              "name": "Set up front",
+              "status": "completed"
+            },
+            {
+              "name": "Create API",
+              "status": "completed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Machine Learning Pipeline",
+      "tasks": [
+        {
+          "id": "task4",
+          "name": "Collect Data",
+          "assigned_to": "Carol"
+        },
+        {
+          "id": "task5",
+          "name": "Preprocess Data",
+          "assigned_to": "David",
+          "reference": ["task4"]
+        },
+        {
+          "id": "task6",
+          "name": "Train Model",
+          "assigned_to": "Eve",
+          "reference": ["task5"]
+        },
+        {
+          "id": "task7",
+          "name": "Evaluate Model",
+          "assigned_to": "Frank",
+          "reference": ["task6"]
+        },
+        {
+          "id": "task8",
+          "name": "Deploy Model",
+          "assigned_to": "Grace"
+        }
+      ]
+    },
+    {
+      "name": "Web Scraper",
+      "tasks": [
+        {
+          "id": "task9",
+          "name": "Identify Websites",
+          "assigned_to": "Heidi"
+        },
+        {
+          "id": "task10",
+          "name": "Develop Scraper",
+          "assigned_to": "Ivan",
+          "subtasks": [
+            {
+              "name": "Parse HTML",
+              "status": "in_progress"
+            },
+            {
+              "name": "Extract Data",
+              "status": "not_started"
+            }
+          ]
+        },
+        {
+          "id": "task11",
+          "name": "Store Data",
+          "assigned_to": "Judy"
+        },
+        {
+          "id": "task12",
+          "name": "Analyze Data",
+          "assigned_to": "Ken",
+          "reference": ["task11"]
+        }
+      ]
+    },
+    {
+      "name": "Mobile App",
+      "tasks": [
+        {
+          "id": "task13",
+          "name": "Design UI",
+          "assigned_to": "Linda"
+        },
+        {
+          "id": "task14",
+          "name": "Implement UI",
+          "assigned_to": "Mike",
+          "reference": ["task13"]
+        },
+        {
+          "id": "task15",
+          "name": "Develop Backend",
+          "assigned_to": "Nancy",
+          "subtasks": [
+            {
+              "name": "Set up server",
+              "status": "completed"
+            },
+            {
+              "name": "Create API endpoints",
+              "status": "in_progress"
+            }
+          ]
+        },
+        {
+          "id": "task16",
+          "name": "Integrate Frontend and Backend",
+          "assigned_to": "Oscar",
+          "reference": ["task14", "task15"]
+        },
+        {
+          "id": "task17",
+          "name": "Test App",
+          "assigned_to": "Peggy"
+        }
+      ]
+    },
+    {
+      "name": "Data Visualization Dashboard",
+      "tasks": [
+        {
+          "id": "task18",
+          "name": "Gather Requirements",
+          "assigned_to": "Quinn"
+        },
+        {
+          "id": "task19",
+          "name": "Design Layout",
+          "assigned_to": "Rachel"
+        },
+        {
+          "id": "task20",
+          "name": "Implement Charts",
+          "assigned_to": "Steve",
+          "subtasks": [
+            {
+              "name": "Bar Chart",
+              "status": "completed"
+            },
+            {
+              "name": "Line Chart",
+              "status": "in_progress"
+            },
+            {
+              "name": "Pie Chart",
+              "status": "not_started"
+            }
+          ]
+        },
+        {
+          "id": "task21",
+          "name": "Implement Filters",
+          "assigned_to": "Tom"
+        },
+        {
+          "id": "task22",
+          "name": "Connect to Data Source",
+          "assigned_to": "Ursula"
+        }
+      ]
+    },
+    {
+      "name": "Recommendation Engine",
+      "tasks": [
+        {
+          "id": "task23",
+          "name": "Research Algorithms",
+          "assigned_to": "Victor"
+        },
+        {
+          "id": "task24",
+          "name": "Collect User Data",
+          "assigned_to": "Wanda"
+        },
+        {
+          "id": "task25",
+          "name": "Implement Collaborative Filtering",
+          "assigned_to": "Xavier",
+          "reference": ["task23", "task24"]
+        },
+        {
+          "id": "task26",
+          "name": "Implement Content-Based Filtering",
+          "assigned_to": "Yolanda",
+          "reference": ["task23", "task24"]
+        },
+        {
+          "id": "task27",
+          "name": "Evaluate Recommendations",
+          "assigned_to": "Zach"
+        }
+      ]
+    },
+    {
+      "name": "Chatbot",
+      "tasks": [
+        {
+          "id": "task28",
+          "name": "Define Intents",
+          "assigned_to": "Alice"
+        },
+        {
+          "id": "task29",
+          "name": "Create Dialogue Flow",
+          "assigned_to": "Bob"
+        },
+        {
+          "id": "task30",
+          "name": "Implement NLP",
+          "assigned_to": "Carol",
+          "subtasks": [
+            {
+              "name": "Entity Recognition",
+              "status": "completed"
+            },
+            {
+              "name": "Sentiment Analysis",
+              "status": "not_started"
+            }
+          ]
+        },
+        {
+          "id": "task31",
+          "name": "Integrate with Messaging Platform",
+          "assigned_to": "David"
+        },
+        {
+          "id": "task32",
+          "name": "Test Chatbot",
+          "assigned_to": "Eve",
+          "reference": ["task29", "task30", "task31"]
+        }
+      ]
+    },
+    {
+      "name": "E-commerce Website",
+      "tasks": [
+        {
+          "id": "task33",
+          "name": "Design Homepage",
+          "assigned_to": "Frank"
+        },
+        {
+          "id": "task34",
+          "name": "Implement Product Catalog",
+          "assigned_to": "Grace",
+          "subtasks": [
+            {
+              "name": "Create Product Database",
+              "status": "completed"
+            },
+            {
+              "name": "Display Products",
+              "status": "in_progress"
+            }
+          ]
+        },
+        {
+          "id": "task35",
+          "name": "Implement Shopping Cart",
+          "assigned_to": "Heidi"
+        },
+        {
+          "id": "task36",
+          "name": "Integrate Payment Gateway",
+          "assigned_to": "Ivan"
+        },
+        {
+          "id": "task37",
+          "name": "Set Up Order Tracking",
+          "assigned_to": "Judy"
+        }
+      ]
+    },
+    {
+      "name": "Inventory Management System",
+      "tasks": [
+        {
+          "id": "task38",
+          "name": "Define Data Model",
+          "assigned_to": "Ken"
+        },
+        {
+          "id": "task39",
+          "name": "Implement Database",
+          "assigned_to": "Linda"
+        },
+        {
+          "id": "task40",
+          "name": "Create CRUD Operations",
+          "assigned_to": "Mike",
+          "reference": ["task38", "task39"]
+        },
+        {
+          "id": "task41",
+          "name": "Implement Stock Tracking",
+          "assigned_to": "Nancy"
+        },
+        {
+          "id": "task42",
+          "name": "Generate Reports",
+          "assigned_to": "Oscar"
+        }
+      ]
+    },
+    {
+      "name": "Social Media Analytics Platform",
+      "tasks": [
+        {
+          "id": "task43",
+          "name": "Integrate Social Media APIs",
+          "assigned_to": "Peggy"
+        },
+        {
+          "id": "task44",
+          "name": "Collect Posts and Metrics",
+          "assigned_to": "Quinn",
+          "reference": ["task43"]
+        },
+        {
+          "id": "task45",
+          "name": "Implement Data Pipeline",
+          "assigned_to": "Rachel",
+          "subtasks": [
+            {
+              "name": "Extract Data",
+              "status": "in_progress"
+            },
+            {
+              "name": "Transform Data",
+              "status": "not_started"
+            },
+            {
+              "name": "Load Data",
+              "status": "not_started"
+            }
+          ]
+        },
+        {
+          "id": "task46",
+          "name": "Develop Analytics Dashboard",
+          "assigned_to": "Steve",
+          "reference": ["task45"]
+        },
+        {
+          "id": "task47",
+          "name": "Generate Insights",
+          "assigned_to": "Tom"
+        }
+      ]
+    }
+  ]
+}
