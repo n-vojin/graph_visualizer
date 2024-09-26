@@ -171,33 +171,48 @@
     }
 
     function showNodeDetails(nodeId) {
-        if (!globalGraph || !globalGraph.nodes[nodeId]) {
-            $('#details').html('<p>Node not found</p>');
-            return;
-        }
-
-        const node = globalGraph.nodes[nodeId];
-        const attributes = node.attributes;
-
-        let html = `<strong>Node ID:</strong> ${nodeId}<br>`;
-        html += '<strong>Attributes:</strong><br>';
-        html += '<table style="border-collapse: collapse; width: 100%;">';
-
-        for (const [key, value] of Object.entries(attributes)) {
-            html += '<tr style="border-bottom: 1px solid #ddd;">';
-            html += `<td style="padding: 4px; vertical-align: top;"><strong>${key}:</strong></td>`;
-            if (typeof value === 'object' && value !== null) {
-                html += `<td style="padding: 4px;"><pre style="margin: 0; white-space: pre-wrap; word-break: break-all;">${JSON.stringify(value, null, 2)}</pre></td>`;
-            } else {
-                html += `<td style="padding: 4px;">${value}</td>`;
-            }
-            html += '</tr>';
-        }
-
-        html += '</table>';
-
-        $('#details').html(html);
+    if (!globalGraph || !globalGraph.nodes[nodeId]) {
+        $('#details').html('<p>Node not found</p>');
+        return;
     }
+
+    const node = globalGraph.nodes[nodeId];
+    const attributes = node.attributes;
+
+    let html = `<strong>Node ID:</strong> ${nodeId}<br>`;
+    html += '<strong>Attributes:</strong><br>';
+    html += '<table style="border-collapse: collapse; width: 100%;">';
+
+    for (const [key, value] of Object.entries(attributes)) {
+        html += '<tr style="border-bottom: 1px solid #ddd;">';
+        html += `<td style="padding: 4px; vertical-align: top;"><strong>${key}:</strong></td>`;
+        if (typeof value === 'object' && value !== null) {
+            html += `<td style="padding: 4px;"><pre style="margin: 0; white-space: pre-wrap; word-break: break-all;">${JSON.stringify(value, null, 2)}</pre></td>`;
+        } else {
+            html += `<td style="padding: 4px;">${value}</td>`;
+        }
+        html += '</tr>';
+    }
+
+    html += '</table>';
+
+    // Add children information
+    const children = globalGraph.edges.filter(edge => edge.source.node_id === nodeId)
+                                      .map(edge => edge.destination.node_id);
+
+    if (children.length > 0) {
+        html += '<br><strong>Children:</strong><br>';
+        html += '<ul>';
+        for (const childId of children) {
+            html += `<li>${childId}</li>`;
+        }
+        html += '</ul>';
+    } else {
+        html += '<br><strong>Children:</strong> None';
+    }
+
+    $('#details').html(html);
+}
 
     function expandToNode(nodeId) {
         const nodePath = [];
